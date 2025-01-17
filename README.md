@@ -7,6 +7,7 @@ Este projeto é um sistema básico de gerenciamento de biblioteca desenvolvido c
 ## Funcionalidades
 
 ### 1. Gestão de Livros:
+
 - Adicionar, atualizar, listar e remover livros.
 - Informações de cada livro:
   - Título
@@ -16,6 +17,7 @@ Este projeto é um sistema básico de gerenciamento de biblioteca desenvolvido c
   - Quantidade em estoque
 
 ### 2. Gestão de Autores:
+
 - Adicionar, listar e remover autores.
 - Informações de cada autor:
   - Nome
@@ -23,6 +25,7 @@ Este projeto é um sistema básico de gerenciamento de biblioteca desenvolvido c
   - Data de nascimento
 
 ### 3. Gestão de Usuários:
+
 - Cadastro de usuários com informações:
   - Nome
   - E-mail
@@ -31,11 +34,13 @@ Este projeto é um sistema básico de gerenciamento de biblioteca desenvolvido c
 - Login com autenticação e autorização usando Spring Security.
 
 ### 4. Controle de Empréstimos:
+
 - Realizar empréstimos e devoluções de livros.
 - Validar a disponibilidade dos livros antes do empréstimo.
 - Registrar a data de empréstimo e data de devolução.
 
 ### 5. Relatórios Simples:
+
 - Listar livros emprestados por usuário.
 - Listar livros mais emprestados.
 
@@ -55,23 +60,29 @@ Este projeto é um sistema básico de gerenciamento de biblioteca desenvolvido c
 ## Como Executar o Projeto
 
 ### Pré-requisitos
+
 Certifique-se de ter as seguintes ferramentas instaladas:
+
 - Java 17+
 - Maven 3.8+
 - IDE de sua preferência (IntelliJ, Eclipse, VsCode, etc.)
 
 ### Passos para Execução
+
 1. Clone este repositório:
+
    ```bash
    git clone https://github.com/seu-usuario/nome-do-repositorio.git
    ```
 
 2. Navegue até o diretório do projeto:
+
    ```bash
    cd nome-do-repositorio
    ```
 
 3. Execute o projeto usando Maven:
+
    ```bash
    mvn spring-boot:run
    ```
@@ -84,23 +95,27 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 ## Endpoints REST
 
 ### Livros:
+
 - **GET** `/api/livros`: Listar todos os livros.
 - **POST** `/api/livros`: Adicionar um novo livro.
 - **PUT** `/api/livros/{id}`: Atualizar um livro existente.
 - **DELETE** `/api/livros/{id}`: Remover um livro.
 
 ### Autores:
+
 - **GET** `/api/autores`: Listar todos os autores.
 - **POST** `/api/autores`: Adicionar um novo autor.
 - **DELETE** `/api/autores/{id}`: Remover um autor.
 
 ### Usuários:
+
 - **POST** `/api/usuarios`: Cadastro de usuários.
 - **POST** `/api/login`: Login e autenticação.
 
 ### Empréstimos:
-- **POST** `/api/emprestimos`: Realizar um empréstimo.
-- **PUT** `/api/emprestimos/{id}/devolucao`: Realizar a devolução de um empréstimo.
+
+- **POST** `/api/Emprestimo`: Realizar um empréstimo.
+- **PUT** `/api/Emprestimo/{id}/devolucao`: Realizar a devolução de um empréstimo.
 
 ---
 
@@ -112,5 +127,3 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 - Integração com um frontend (Angular)
 
 ---
-
-
