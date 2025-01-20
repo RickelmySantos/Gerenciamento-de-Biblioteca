@@ -94,7 +94,7 @@ public final class Random {
     return RandomStringUtils.randomNumeric(length);
   }
 
-  public static LocalDate nexLocalDate() {
+  public static LocalDate nextLocalDate() {
 
     long minEpochDay = LocalDate.of(1900, 1, 1).toEpochDay();
     long maxEpochDay = LocalDate.of(2100, 12, 31).toEpochDay();

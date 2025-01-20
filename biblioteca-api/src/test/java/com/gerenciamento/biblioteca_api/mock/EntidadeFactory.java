@@ -1,20 +1,19 @@
 package com.gerenciamento.biblioteca_api.mock;
 
-import com.gerenciamento.biblioteca_api.core.util.Random;
-import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
+import java.util.ArrayList;
+import java.util.List;
 
-public class EntidadeFactory {
+public interface EntidadeFactory<E> {
 
-  public final static EntidadeFactory instance = new EntidadeFactory();
+  E create();
 
-  public Autor create() {
-    return Autor.builder().nome(Random.nextAlphabeticString(20))
-        .sobrenome(Random.nextAlphabeticString(10)).nacionalidade(Random.nextAlphabeticString(10))
-        .dataNascimento(Random.nexLocalDate()).build();
-  }
+  default List<E> create(int total) {
+    List<E> entidades = new ArrayList<>();
 
-  public Autor create(String nome, String sobrenome) {
-    return Autor.builder().nome(nome).sobrenome(sobrenome).build();
+    for (int i = 0; i < total; i++) {
+      entidades.add(this.create());
+    }
+    return entidades;
   }
 
 }

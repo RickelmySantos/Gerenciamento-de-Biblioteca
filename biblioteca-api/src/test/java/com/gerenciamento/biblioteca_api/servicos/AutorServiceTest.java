@@ -1,7 +1,6 @@
 package com.gerenciamento.biblioteca_api.servicos;
 
-import static org.mockito.Mockito.doNothing;
-import com.gerenciamento.biblioteca_api.mock.EntidadeFactory;
+import com.gerenciamento.biblioteca_api.mock.factory.AutorFactory;
 import com.gerenciamento.biblioteca_api.modelos.dtos.AutorDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
 import com.gerenciamento.biblioteca_api.modelos.mappers.AutorMapper;
@@ -38,7 +37,7 @@ public class AutorServiceTest {
   @Test
   void quandoChamarListar_EntaoRetornarListaDeAutores() {
     // Arrange
-    Autor autor = EntidadeFactory.instance.create();
+    Autor autor = AutorFactory.instance.create();
 
     AutorDto autorDto = new AutorDto();
 
@@ -86,7 +85,7 @@ public class AutorServiceTest {
     Long id = 1L;
 
     // Arrange
-    Autor autor = EntidadeFactory.instance.create("Autor", "Xpto");
+    Autor autor = AutorFactory.instance.create("Autor", "Xpto");
     autor.setId(id);
     AutorDto autorDto = new AutorDto();
     autorDto.setId(autor.getId());
@@ -147,7 +146,7 @@ public class AutorServiceTest {
     Long id = 1L;
     // Arrange
 
-    Autor autor = EntidadeFactory.instance.create();
+    Autor autor = AutorFactory.instance.create();
     autor.setId(id);
 
     AutorDto autorDto = new AutorDto();
@@ -212,7 +211,7 @@ public class AutorServiceTest {
   void quandoChamarAtualizar_ComEntidadeValida_EntaoAtualizarComSucesso() {
     Long id = 1L;
 
-    Autor autor = EntidadeFactory.instance.create("Autor", "Xpto");
+    Autor autor = AutorFactory.instance.create("Autor", "Xpto");
     autor.setId(id);
 
     AutorDto autorDto = new AutorDto();

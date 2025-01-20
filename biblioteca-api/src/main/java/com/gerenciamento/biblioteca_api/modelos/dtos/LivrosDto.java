@@ -23,6 +23,6 @@ public class LivrosDto {
   private String genero;
 
   private Autor autor;
-  private List<EmprestimoDto> Emprestimo;
+  private List<EmprestimoDto> emprestimo;
 
 }

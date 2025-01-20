@@ -13,13 +13,9 @@ import org.springframework.util.Assert;
 public class LivrosService {
 
 
-  private final LivrosRepository repository;
-  private final LivrosMapper mapper;
+  private LivrosRepository repository;
+  private LivrosMapper mapper;
 
-  public LivrosService(LivrosRepository repository, LivrosMapper mapper) {
-    this.repository = repository;
-    this.mapper = mapper;
-  }
 
 
   public LivrosDto salvar(LivrosDto livroDto) {
