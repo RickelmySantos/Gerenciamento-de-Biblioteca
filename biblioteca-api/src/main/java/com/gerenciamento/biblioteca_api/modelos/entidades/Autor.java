@@ -42,6 +42,7 @@ public class Autor {
   private String nacionalidade;
 
   private LocalDate dataNascimento;
+
   @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Livros> livros;
 }

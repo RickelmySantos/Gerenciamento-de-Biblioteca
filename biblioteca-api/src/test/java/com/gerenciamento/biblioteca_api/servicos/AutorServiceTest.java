@@ -1,5 +1,6 @@
 package com.gerenciamento.biblioteca_api.servicos;
 
+import static org.mockito.Mockito.doNothing;
 import com.gerenciamento.biblioteca_api.mock.EntidadeFactory;
 import com.gerenciamento.biblioteca_api.modelos.dtos.AutorDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
@@ -270,4 +271,42 @@ public class AutorServiceTest {
     Mockito.verify(this.repository, Mockito.times(1)).findById(id);
     Mockito.verifyNoInteractions(this.mapper);
   }
+
+  /* DELETAR */
+
+  @Test
+  void quandoCHamarDeletar_ComIdValido_EntaoDeletarComSucesso() {
+
+    Long id = 1L;
+
+    // Arrange
+    Autor autor = new Autor();
+    autor.setId(id);
+
+    Mockito.when(this.repository.findById(autor.getId())).thenReturn(Optional.of(autor));
+    Mockito.doNothing().when(this.repository).deleteById(id);
+
+    // Act
+    this.autorService.deletar(id);
+    // Assert
+    Mockito.verify(this.repository, Mockito.times(1)).findById(id);
+
+
+  }
+
+  @Test
+  void quandoChamarDeletar_ComIdInvalido_EntaoRetornarIllegalArgumentException() {
+    Long id = 99L;
+
+    // Arrange
+    IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      this.autorService.deletar(id);
+    });
+
+    // Assert
+    Assertions.assertEquals("Autor não encontrado", ex.getMessage());
+    Mockito.verify(this.repository, Mockito.times(1)).findById(id);
+    Mockito.verifyNoInteractions(this.mapper);
+  }
+
 }

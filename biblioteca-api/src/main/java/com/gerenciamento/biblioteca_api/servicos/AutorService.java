@@ -5,6 +5,7 @@ import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
 import com.gerenciamento.biblioteca_api.modelos.mappers.AutorMapper;
 import com.gerenciamento.biblioteca_api.repositorios.AutorRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -56,6 +57,15 @@ public class AutorService {
 
   }
 
+  public void deletar(Long id) {
+    Assert.notNull(id, "Id não pode ser nulo");
+    Assert.isTrue(id > 0, "Id deve ser maior que 0");
 
+    Optional<Autor> result = this.repository.findById(id);
+    if (result.isEmpty()) {
+      throw new IllegalArgumentException("Autor não encontrado");
+    }
 
+    this.repository.deleteById(id);
+  }
 }

@@ -14,9 +14,7 @@ public class EntidadeFactory {
   }
 
   public Autor create(String nome, String sobrenome) {
-    return Autor.builder().nome(nome).sobrenome(sobrenome)
-        .nacionalidade(Random.nextAlphabeticString(10)).dataNascimento(Random.nexLocalDate())
-        .build();
+    return Autor.builder().nome(nome).sobrenome(sobrenome).build();
   }
 
 }
