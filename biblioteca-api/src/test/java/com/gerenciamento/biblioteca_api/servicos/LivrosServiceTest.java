@@ -145,7 +145,80 @@ public class LivrosServiceTest {
     Mockito.verify(this.mapper, Mockito.times(1)).paraDto(livros);
   }
 
+  @Test
+  void dadaEntidadeNaoCadastrada_QuandoChamarAtualizar_EntaoRetornarIllegalArgumentException() {
 
+    Long id = 99L;
 
+    // Given
+    LivrosDto livrosDto = new LivrosDto();
+    livrosDto.setId(id);
+
+    // When
+    IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      this.service.atualizar(livrosDto);
+    });
+
+    // Then
+    Assertions.assertEquals("Livro não encontrado", ex.getMessage());
+    Mockito.verify(this.repository, Mockito.times(1)).findById(id);
+    Mockito.verifyNoInteractions(this.mapper);
+  }
+
+  @Test
+  void dadaEntidadeInvalida_QuandoChamarAtualizar_EntaoRetornarIllegalArgumentException() {
+
+    // Given
+    LivrosDto livrosDto = new LivrosDto();
+    livrosDto.setId(null);
+
+    IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      this.service.atualizar(livrosDto);
+    });
+
+    // Then
+    Assertions.assertEquals("Id não pode ser nulo", ex.getMessage());
+    Mockito.verifyNoInteractions(this.repository);
+    Mockito.verifyNoInteractions(this.mapper);
+  }
+
+  @Test
+  void dadaEntidadeExistente_QuandaChamarDeletar_EntaoDeletarEntidade() {
+
+    Long id = 1L;
+
+    // Given
+    Livros livros = LivrosFactory.instance.create("Xpto", "Portugues");
+    livros.setId(id);
+
+    // When
+    Mockito.when(this.repository.findById(livros.getId())).thenReturn(Optional.of(livros));
+    Mockito.doNothing().when(this.repository).deleteById(id);
+
+    this.service.deletar(id);
+
+    // Then
+
+    Mockito.verify(this.repository, Mockito.times(1)).findById(id);
+    Mockito.verify(this.repository, Mockito.times(1)).deleteById(id);
+  }
+
+  @Test
+  void dadaEntidadeNaoExistente_QuandaChamarDeletar_EntaoRetornarIllegalArgumentException() {
+
+    Long id = 99L;
+
+    // Given
+    // When
+    IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      this.service.deletar(id);
+    });
+
+    // Then
+    Assertions.assertEquals("não foi possível encontrar o livro com o id informado",
+        ex.getMessage());
+    Mockito.verify(this.repository, Mockito.times(1)).findById(id);
+    Mockito.verifyNoMoreInteractions(this.repository);
+  }
 }
 

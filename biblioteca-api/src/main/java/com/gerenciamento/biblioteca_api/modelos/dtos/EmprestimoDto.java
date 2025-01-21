@@ -16,7 +16,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class EmprestimoDto {
 
+  private Long id;
   private LocalDate dataEmprestimo;
   private LocalDate dataDevolucao;
-  private LivrosDto livrosDto;
+  private Long usuarioId;
+  private Long livroId;
 }

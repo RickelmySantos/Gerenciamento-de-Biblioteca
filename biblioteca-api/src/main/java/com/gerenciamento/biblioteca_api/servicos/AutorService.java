@@ -12,9 +12,14 @@ import org.springframework.util.Assert;
 @Service
 public class AutorService {
 
-  protected AutorRepository repository;
+  private AutorRepository repository;
 
-  protected AutorMapper mapper;
+  private AutorMapper mapper;
+
+  public AutorService(AutorRepository repository, AutorMapper mapper) {
+    this.repository = repository;
+    this.mapper = mapper;
+  }
 
 
   public List<AutorDto> listar() {
