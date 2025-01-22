@@ -94,6 +94,10 @@ public final class Random {
     return RandomStringUtils.randomNumeric(length);
   }
 
+  public static <E extends Enum<E>> E nextEnum(Class<E> enumClass) {
+    return Random.nextElement(enumClass.getEnumConstants());
+  }
+
   public static LocalDate nextLocalDate() {
 
     long minEpochDay = LocalDate.of(1900, 1, 1).toEpochDay();

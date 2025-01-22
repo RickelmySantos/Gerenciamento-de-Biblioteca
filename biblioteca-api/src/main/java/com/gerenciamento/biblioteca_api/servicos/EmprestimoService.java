@@ -9,17 +9,22 @@ import com.gerenciamento.biblioteca_api.repositorios.EmprestimoRepository;
 import com.gerenciamento.biblioteca_api.repositorios.LivrosRepository;
 import com.gerenciamento.biblioteca_api.repositorios.UsuarioRepository;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EmprestimoService {
 
-  private EmprestimoRepository repository;
-  private EmprestimoMapper mapper;
-  private UsuarioRepository usuarioRepository;
-  private LivrosRepository livroRepository;
+  private final EmprestimoRepository repository;
+  private final EmprestimoMapper mapper;
+  private final UsuarioRepository usuarioRepository;
+  private final LivrosRepository livroRepository;
 
-  public EmprestimoService(EmprestimoRepository repository, EmprestimoMapper mapper) {
+  public EmprestimoService(EmprestimoRepository repository, EmprestimoMapper mapper,
+      UsuarioRepository usuarioRepository, LivrosRepository livroRepository) {
     this.repository = repository;
     this.mapper = mapper;
+    this.usuarioRepository = usuarioRepository;
+    this.livroRepository = livroRepository;
   }
 
 

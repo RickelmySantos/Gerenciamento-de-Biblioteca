@@ -4,8 +4,10 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.UsuarioDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Usuario;
 import com.gerenciamento.biblioteca_api.modelos.mappers.UsuarioMapper;
 import com.gerenciamento.biblioteca_api.repositorios.UsuarioRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+@Service
 public class UsuarioService {
 
   private UsuarioRepository repository;
