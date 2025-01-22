@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmprestimoService {
 
-  private final EmprestimoRepository repository;
-  private final EmprestimoMapper mapper;
-  private final UsuarioRepository usuarioRepository;
-  private final LivrosRepository livroRepository;
+  private EmprestimoRepository repository;
+  private EmprestimoMapper mapper;
+  private UsuarioRepository usuarioRepository;
+  private LivrosRepository livroRepository;
 
   public EmprestimoService(EmprestimoRepository repository, EmprestimoMapper mapper,
       UsuarioRepository usuarioRepository, LivrosRepository livroRepository) {

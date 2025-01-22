@@ -9,6 +9,7 @@ import com.gerenciamento.biblioteca_api.repositorios.LivrosRepository;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +28,7 @@ public class LivrosServiceTest {
   @Mock
   protected LivrosMapper mapper;
 
-
+  @BeforeEach
   public void setUp() {
     MockitoAnnotations.openMocks(this);
   }

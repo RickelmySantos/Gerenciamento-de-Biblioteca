@@ -11,6 +11,7 @@ import com.gerenciamento.biblioteca_api.repositorios.UsuarioRepository;
 import java.time.LocalDate;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -34,7 +35,7 @@ public class EmprestimoServiceTest {
   @Mock
   private LivrosRepository livroRepository;
 
-
+  @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
   }
