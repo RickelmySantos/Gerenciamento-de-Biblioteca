@@ -57,6 +57,11 @@ public class EmprestimoService {
     Livros livros = this.livroRepository.findById(emprestimoDto.getLivroId())
         .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
 
+    if (emprestimoDto.getDataDevolucao().isBefore(emprestimoDto.getDataEmprestimo())) {
+      throw new IllegalArgumentException(
+          "Data de devolução não pode ser menor que a data de emprestimo");
+    }
+
     emprestimo.setUsuario(usuario);
     emprestimo.setLivros(livros);
     emprestimo.setDataEmprestimo(emprestimoDto.getDataEmprestimo());
