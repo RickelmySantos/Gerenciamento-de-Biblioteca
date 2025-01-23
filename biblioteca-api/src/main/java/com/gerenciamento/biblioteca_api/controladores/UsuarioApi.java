@@ -4,6 +4,8 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.UsuarioDto;
 import com.gerenciamento.biblioteca_api.servicos.UsuarioService;
 import jakarta.validation.Valid;
 import java.util.List;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,22 +17,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Getter
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioApi {
 
-  private UsuarioService usuarioService;
-
-  public UsuarioApi(UsuarioService usuarioService) {
-    this.usuarioService = usuarioService;
-  }
+  private final UsuarioService usuarioService;
 
   @PostMapping
   public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioService.cadastrar(usuarioDto));
   }
 
-  @GetMapping("/listar")
+  @GetMapping()
   public ResponseEntity<List<UsuarioDto>> listAll() {
     return ResponseEntity.ok(this.usuarioService.listAll());
   }

@@ -35,7 +35,7 @@ public class AutorServiceTest {
   /* LISTAR */
 
   @Test
-  void quandoChamarListar_EntaoRetornarListaDeAutores() {
+  void quandoChamarListAll_EntaoRetornarListaDeAutores() {
     // Arrange
     Autor autor = AutorFactory.instance.create();
 
@@ -51,7 +51,7 @@ public class AutorServiceTest {
     Mockito.when(this.mapper.paraDto(autor)).thenReturn(autorDto);
 
     // Act
-    List<AutorDto> result = this.autorService.listar();
+    List<AutorDto> result = this.autorService.listAll();
 
     // Assert
     Assertions.assertNotNull(result);
@@ -63,13 +63,13 @@ public class AutorServiceTest {
   }
 
   @Test
-  void quandoChamarListarVazia_EntaoRetornarListaVazia() {
+  void quandoChamarListAllVazia_EntaoRetornarListaVazia() {
     // Arrange
 
     Mockito.when(this.repository.findAll()).thenReturn(List.of());
 
     // Act
-    List<AutorDto> result = this.autorService.listar();
+    List<AutorDto> result = this.autorService.listAll();
 
     // Assert
     Assertions.assertNotNull(result);
@@ -142,7 +142,7 @@ public class AutorServiceTest {
   /* SALVAR */
 
   @Test
-  void quandoChamarSalvar_ComEntidadeValida_EntaoPersistirComSucesso() {
+  void quandoChamarCadastrar_ComEntidadeValida_EntaoPersistirComSucesso() {
     Long id = 1L;
     // Arrange
 
@@ -160,7 +160,7 @@ public class AutorServiceTest {
     Mockito.when(this.mapper.paraDto(autor)).thenReturn(autorDto);
 
     // Act
-    AutorDto result = this.autorService.salvar(autorDto);
+    AutorDto result = this.autorService.cadastrar(autorDto);
 
     // Assert
     Assertions.assertNotNull(result);
@@ -174,11 +174,11 @@ public class AutorServiceTest {
   }
 
   @Test
-  void quandoChamarSalvarComEntidadeNula_EntaoRetornarExcption() {
+  void quandoChamarCadastrarComEntidadeNula_EntaoRetornarExcption() {
 
     // Arrange
     IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      this.autorService.salvar(null);
+      this.autorService.cadastrar(null);
     });
 
     // Assert
@@ -188,7 +188,7 @@ public class AutorServiceTest {
   }
 
   @Test
-  void quandoChamarSalvarComIdNaoNulo_EntaoRetornarException() {
+  void quandoChamarCadastrarComIdNaoNulo_EntaoRetornarException() {
     Long id = 1L;
 
     // Arrange
@@ -196,7 +196,7 @@ public class AutorServiceTest {
     autorDto.setId(id);
 
     IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      this.autorService.salvar(autorDto);
+      this.autorService.cadastrar(autorDto);
     });
 
     // Assert
@@ -289,7 +289,6 @@ public class AutorServiceTest {
     this.autorService.deletar(id);
     // Assert
     Mockito.verify(this.repository, Mockito.times(1)).findById(id);
-
 
   }
 

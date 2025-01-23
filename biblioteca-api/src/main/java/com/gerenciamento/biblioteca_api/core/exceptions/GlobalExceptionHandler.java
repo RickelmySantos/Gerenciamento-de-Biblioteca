@@ -39,14 +39,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(EntityNotFoundException.class)
-  public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex, HttpHeaders headers,
-      HttpStatusCode statusCode, WebRequest request) {
-    HttpStatus status = (HttpStatus) statusCode;
+  public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex, WebRequest request) {
+    var status = HttpStatus.NOT_FOUND;
     GlobalExceptionHandler.log.error(status.getReasonPhrase(), ex);
 
     var erro = new ErroDTO(status);
     erro.setMessage("Entidade não encontrada.");
-    return new ResponseEntity<>(erro, headers, status);
+    return new ResponseEntity<>(erro, status);
   }
 
   @Override

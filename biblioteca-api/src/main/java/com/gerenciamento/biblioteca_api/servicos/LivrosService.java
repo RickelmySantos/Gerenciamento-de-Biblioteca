@@ -12,13 +12,15 @@ import org.springframework.util.Assert;
 @Service
 public class LivrosService {
 
-
   private LivrosRepository repository;
   private LivrosMapper mapper;
 
+  public LivrosService(LivrosRepository repository, LivrosMapper mapper) {
+    this.repository = repository;
+    this.mapper = mapper;
+  }
 
-
-  public LivrosDto salvar(LivrosDto livroDto) {
+  public LivrosDto cadastrar(LivrosDto livroDto) {
     Assert.notNull(livroDto, "Livro não pode ser nulo");
     Assert.isNull(livroDto.getId(), "Id deve ser nulo");
 
@@ -42,22 +44,20 @@ public class LivrosService {
     return this.mapper.paraDto(this.repository.save(livroAtualizado));
   }
 
-  public Optional<LivrosDto> buscarPorId(Long id) {
+  public LivrosDto buscarPorId(Long id) {
     Assert.notNull(id, "Id não pode ser nulo");
+    Livros livros = this.repository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
 
-    Optional<Livros> livro = this.repository.findById(id);
-
-    return livro.map(this.mapper::paraDto);
+    return this.mapper.paraDto(livros);
   }
 
-  public List<LivrosDto> listar() {
-
+  public List<LivrosDto> listAll() {
 
     List<Livros> livros = this.repository.findAll();
 
     return livros.stream().map(this.mapper::paraDto).toList();
   }
-
 
   public void deletar(Long id) {
     Assert.notNull(id, "Id não pode ser nulo");

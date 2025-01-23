@@ -86,7 +86,7 @@ public class EmprestimoServiceTest {
         .thenReturn(savedEmprestimoDto);
 
     // When
-    EmprestimoDto result = this.emprestimoService.salvar(emprestimoDto);
+    EmprestimoDto result = this.emprestimoService.cadastrar(emprestimoDto);
 
     // Then
     Assertions.assertEquals(savedEmprestimoDto, result);
@@ -106,7 +106,7 @@ public class EmprestimoServiceTest {
     Mockito.when(this.usuarioRepository.findById(1L)).thenReturn(Optional.empty());
 
     Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      this.emprestimoService.salvar(emprestimoDto);
+      this.emprestimoService.cadastrar(emprestimoDto);
     });
   }
 
@@ -128,7 +128,7 @@ public class EmprestimoServiceTest {
     Mockito.when(this.livroRepository.findById(1L)).thenReturn(Optional.empty());
 
     Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      this.emprestimoService.salvar(emprestimoDto);
+      this.emprestimoService.cadastrar(emprestimoDto);
     });
   }
 
@@ -196,7 +196,6 @@ public class EmprestimoServiceTest {
 
     Assertions.assertEquals("Emprestimo não encontrado !", ex.getMessage());
   }
-
 
   @Test
   void dadoUsuarioNaoEncontrado_QuandoChamarAtualizar_EntaoRetornarIllegalArgumentException() {
@@ -303,7 +302,6 @@ public class EmprestimoServiceTest {
     Assertions.assertEquals("Data de devolução não pode ser menor que a data de emprestimo",
         ex.getMessage());
   }
-
 
   /* BUSCAR POR ID */
 

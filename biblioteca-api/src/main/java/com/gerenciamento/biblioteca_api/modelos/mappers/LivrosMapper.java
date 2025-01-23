@@ -5,9 +5,7 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.LivrosDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Livros;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface LivrosMapper extends BaseMapper<LivrosDto, Livros> {
-
-
 
 }

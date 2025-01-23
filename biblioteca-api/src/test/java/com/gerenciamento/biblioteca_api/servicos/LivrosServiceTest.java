@@ -33,7 +33,6 @@ public class LivrosServiceTest {
     MockitoAnnotations.openMocks(this);
   }
 
-
   /* SALVAR */
 
   @Test
@@ -43,8 +42,6 @@ public class LivrosServiceTest {
     // Given
     Livros livros = LivrosFactory.instance.create();
     livros.setId(id);
-
-
 
     LivrosDto livrosDto = new LivrosDto();
     livrosDto.setTitulo(livros.getTitulo());
@@ -60,13 +57,12 @@ public class LivrosServiceTest {
       return dto;
     }).collect(Collectors.toList()));
 
-
     // When
     Mockito.when(this.repository.save(livros)).thenReturn(livros);
     Mockito.when(this.mapper.paraEntidade(livrosDto)).thenReturn(livros);
     Mockito.when(this.mapper.paraDto(livros)).thenReturn(livrosDto);
 
-    LivrosDto result = this.service.salvar(livrosDto);
+    LivrosDto result = this.service.cadastrar(livrosDto);
 
     // Then
     Assertions.assertNotNull(result);
@@ -86,7 +82,7 @@ public class LivrosServiceTest {
     // When
 
     IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      this.service.salvar(livrosDto);
+      this.service.cadastrar(livrosDto);
     });
 
     // Then
@@ -103,7 +99,7 @@ public class LivrosServiceTest {
     // When
 
     IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      this.service.salvar(livrosDto);
+      this.service.cadastrar(livrosDto);
     });
 
     // Then
@@ -222,4 +218,3 @@ public class LivrosServiceTest {
     Mockito.verifyNoMoreInteractions(this.repository);
   }
 }
-

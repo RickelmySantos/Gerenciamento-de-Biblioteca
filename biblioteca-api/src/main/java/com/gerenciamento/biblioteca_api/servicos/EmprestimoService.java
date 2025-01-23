@@ -27,8 +27,7 @@ public class EmprestimoService {
     this.livroRepository = livroRepository;
   }
 
-
-  public EmprestimoDto salvar(EmprestimoDto emprestimoDto) {
+  public EmprestimoDto cadastrar(EmprestimoDto emprestimoDto) {
 
     Usuario usuario = this.usuarioRepository.findById(emprestimoDto.getUsuarioId())
         .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
@@ -72,7 +71,6 @@ public class EmprestimoService {
     return this.mapper.paraDto(save);
   }
 
-
   public EmprestimoDto buscarPorId(Long id) {
     Emprestimo emprestimo = this.repository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Emprestimo não encontrado !"));
@@ -80,7 +78,7 @@ public class EmprestimoService {
     return this.mapper.paraDto(emprestimo);
   }
 
-  public List<EmprestimoDto> listar() {
+  public List<EmprestimoDto> listAll() {
     return this.repository.findAll().stream().map(this.mapper::paraDto).toList();
   }
 
