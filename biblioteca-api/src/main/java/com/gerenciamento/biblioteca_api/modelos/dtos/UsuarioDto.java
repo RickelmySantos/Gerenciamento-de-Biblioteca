@@ -25,6 +25,7 @@ public class UsuarioDto {
   private String nome;
   private String email;
   private String senha;
+
   private TipoUsuario tipoUsuario;
 
   private List<EmprestimoDto> emprestimoDto;

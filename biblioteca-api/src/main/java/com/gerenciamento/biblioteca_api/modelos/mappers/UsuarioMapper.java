@@ -5,7 +5,7 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.UsuarioDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Usuario;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UsuarioMapper extends BaseMapper<UsuarioDto, Usuario> {
 
 }

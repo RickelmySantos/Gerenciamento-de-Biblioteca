@@ -5,7 +5,7 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.EmprestimoDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Emprestimo;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EmprestimoMapper extends BaseMapper<EmprestimoDto, Emprestimo> {
 
 }

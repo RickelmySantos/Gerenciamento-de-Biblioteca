@@ -3,6 +3,8 @@ package com.gerenciamento.biblioteca_api.modelos.entidades;
 import com.gerenciamento.biblioteca_api.modelos.enums.TipoUsuario;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,9 +39,8 @@ public class Usuario {
   private String nome;
   private String email;
   private String senha;
+  @Enumerated(EnumType.STRING)
   private TipoUsuario tipoUsuario;
   @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Emprestimo> emprestimo;
-
-
 }

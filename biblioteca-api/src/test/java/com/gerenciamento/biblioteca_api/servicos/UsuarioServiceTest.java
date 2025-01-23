@@ -55,7 +55,6 @@ public class UsuarioServiceTest {
     usuarioDto.setEmprestimoDto(usuario.getEmprestimo().stream()
         .map(emprestimo -> new EmprestimoDto()).collect(Collectors.toList()));
 
-
     // When
     Mockito.when(this.usuarioRepository.save(ArgumentMatchers.any(Usuario.class)))
         .thenReturn(usuario);
@@ -64,7 +63,7 @@ public class UsuarioServiceTest {
     Mockito.when(this.usuarioMapper.paraDto(ArgumentMatchers.any(Usuario.class)))
         .thenReturn(usuarioDto);
 
-    UsuarioDto usuarioSalvo = this.usuarioService.salvar(usuarioDto);
+    UsuarioDto usuarioSalvo = this.usuarioService.cadastrar(usuarioDto);
 
     // Then
     Assertions.assertNotNull(usuarioSalvo);
@@ -79,7 +78,7 @@ public class UsuarioServiceTest {
 
     // When
     IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
-        () -> this.usuarioService.salvar(usuarioDto));
+        () -> this.usuarioService.cadastrar(usuarioDto));
 
     // Then
     Assertions.assertEquals("Usuario não pode ser nulo", exception.getMessage());
@@ -166,7 +165,6 @@ public class UsuarioServiceTest {
     emprestimo.setLivros(livro);
 
     usuario.setEmprestimo(List.of(emprestimo));
-
 
     UsuarioDto usuarioDto = new UsuarioDto();
     usuarioDto.setId(usuario.getId());

@@ -5,7 +5,7 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.AutorDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AutorMapper extends BaseMapper<AutorDto, Autor> {
 
 }

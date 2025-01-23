@@ -4,6 +4,7 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.UsuarioDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Usuario;
 import com.gerenciamento.biblioteca_api.modelos.mappers.UsuarioMapper;
 import com.gerenciamento.biblioteca_api.repositorios.UsuarioRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -19,7 +20,7 @@ public class UsuarioService {
     this.mapper = mapper;
   }
 
-  public UsuarioDto salvar(UsuarioDto usuarioDto) {
+  public UsuarioDto cadastrar(UsuarioDto usuarioDto) {
     Assert.notNull(usuarioDto, "Usuario não pode ser nulo");
     Assert.isNull(usuarioDto.getId(), "Id deve ser nulo");
 
@@ -40,6 +41,12 @@ public class UsuarioService {
     usuarioAtualizado.setId(usuario.getId());
 
     return this.mapper.paraDto(this.repository.save(usuarioAtualizado));
+  }
+
+  public List<UsuarioDto> listAll() {
+    return this.repository.findAll().stream()
+        .map(this.mapper::paraDto)
+        .toList();
   }
 
   public UsuarioDto buscarPorId(Long id) {
