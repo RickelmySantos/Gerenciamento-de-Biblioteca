@@ -1,8 +1,10 @@
 package com.gerenciamento.biblioteca_api.servicos;
 
 import com.gerenciamento.biblioteca_api.modelos.dtos.LivrosDto;
+import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Livros;
 import com.gerenciamento.biblioteca_api.modelos.mappers.LivrosMapper;
+import com.gerenciamento.biblioteca_api.repositorios.AutorRepository;
 import com.gerenciamento.biblioteca_api.repositorios.LivrosRepository;
 import java.util.List;
 import java.util.Optional;
@@ -14,19 +16,30 @@ public class LivrosService {
 
   private LivrosRepository repository;
   private LivrosMapper mapper;
+  private AutorRepository autorRepository;
 
-  public LivrosService(LivrosRepository repository, LivrosMapper mapper) {
+  public LivrosService(LivrosRepository repository, LivrosMapper mapper,
+      AutorRepository autorRepository) {
     this.repository = repository;
     this.mapper = mapper;
+    this.autorRepository = autorRepository;
   }
 
   public LivrosDto cadastrar(LivrosDto livroDto) {
     Assert.notNull(livroDto, "Livro não pode ser nulo");
     Assert.isNull(livroDto.getId(), "Id deve ser nulo");
+    Assert.notNull(livroDto.getAutorId(), "AutorId não pode ser nulo");
 
-    Livros livro = this.repository.save(this.mapper.paraEntidade(livroDto));
+    Autor autor = this.autorRepository.findById(livroDto.getAutorId())
+        .orElseThrow(() -> new IllegalArgumentException("Autor não encontrado"));
 
-    return this.mapper.paraDto(livro);
+    Livros livro = this.mapper.paraEntidade(livroDto);
+
+    livro.setAutor(autor);
+
+    Livros livroSalvo = this.repository.save(livro);
+
+    return this.mapper.paraDto(livroSalvo);
 
   }
 

@@ -23,5 +23,4 @@ public class AutorDto {
   private String nacionalidade;
   private LocalDate dataNascimento;
   private List<LivrosDto> livros;
-
 }

@@ -22,7 +22,8 @@ public class AutorService {
 
   private AutorMapper mapper;
 
-  public AutorService(AutorRepository repository, AutorMapper mapper, LivrosRepository livrosRepository) {
+  public AutorService(AutorRepository repository, AutorMapper mapper,
+      LivrosRepository livrosRepository) {
     this.livrosRepository = livrosRepository;
     this.repository = repository;
     this.mapper = mapper;

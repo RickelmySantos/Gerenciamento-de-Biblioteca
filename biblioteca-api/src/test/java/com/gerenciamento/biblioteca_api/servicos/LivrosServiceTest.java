@@ -19,7 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class LivrosServiceTest {
+class LivrosServiceTest {
   @InjectMocks
   protected LivrosService service;
   @Mock
@@ -48,7 +48,7 @@ public class LivrosServiceTest {
     livrosDto.setIdioma(livros.getIdioma());
     livrosDto.setGenero(livros.getGenero());
     livrosDto.setEditora(livros.getEditora());
-    livrosDto.setAutor(livros.getAutor());
+    livrosDto.setAutorId(livros.getAutor().getId());
     livrosDto.setEmprestimo(livros.getEmprestimo().stream().map(emprestimo -> {
       EmprestimoDto dto = new EmprestimoDto();
 
