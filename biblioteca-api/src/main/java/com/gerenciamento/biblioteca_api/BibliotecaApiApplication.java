@@ -1,11 +1,15 @@
 package com.gerenciamento.biblioteca_api;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = "com.gerenciamento.biblioteca_api")
 @SpringBootApplication
+@OpenAPIDefinition(info = @Info(title = "Biblioteca API", version = "1.0",
+    description = "Documentação da API de gerenciamento de biblioteca"))
 public class BibliotecaApiApplication {
 
   public static void main(String[] args) {
