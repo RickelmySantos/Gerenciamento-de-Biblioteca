@@ -5,6 +5,8 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.AutorDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
 import com.gerenciamento.biblioteca_api.modelos.mappers.AutorMapper;
 import com.gerenciamento.biblioteca_api.repositorios.AutorRepository;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -148,6 +150,9 @@ public class AutorServiceTest {
 
     Autor autor = AutorFactory.instance.create();
     autor.setId(id);
+    autor.setDataNascimento(
+        LocalDate.parse("12/12/2021", DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
 
     AutorDto autorDto = new AutorDto();
     autorDto.setNome(autor.getNome());
@@ -205,6 +210,38 @@ public class AutorServiceTest {
     Mockito.verifyNoInteractions(this.mapper);
   }
 
+  @Test
+  void quandoChamarCadastrarComDataInvalida_EntaoRetornarIllegalArgumentException() {
+
+    // Arrange
+    AutorDto autorDto = new AutorDto();
+    autorDto.setDataNascimento(null);
+
+    IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      this.autorService.cadastrar(autorDto);
+    });
+
+    // Assert
+    Assertions.assertEquals("Data de nascimento não pode ser nula", ex.getMessage());
+  }
+
+  // @Test
+  // void quandoChamarCadastrar_ComFormatadoDeDataInvalida_EntaoRetornarIllegalArgumentException() {
+
+  // // Arrange
+  // AutorDto autorDto = new AutorDto();
+  // autorDto.setDataNascimento(LocalDate.of(2021, 12, 12));
+
+  // IllegalArgumentException ex = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+  // this.autorService.cadastrar(autorDto);
+  // });
+
+  // // Assert
+  // Assertions.assertEquals("Formato de data inválido. Use o formato dd/MM/yyyy", ex.getMessage());
+  // }
+
+
+
   /* ATUALIZAR */
 
   @Test
@@ -218,6 +255,8 @@ public class AutorServiceTest {
     autorDto.setId(autor.getId());
     autorDto.setNome("Autor Atualizado");
     autorDto.setSobrenome("Xpto ");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    autorDto.setDataNascimento(LocalDate.parse("12/12/2021", formatter));
 
     Mockito.when(this.repository.findById(autor.getId())).thenReturn(Optional.of(autor));
     Mockito.when(this.repository.save(autor)).thenReturn(autor);

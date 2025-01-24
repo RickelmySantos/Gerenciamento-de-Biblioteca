@@ -1,5 +1,6 @@
 package com.gerenciamento.biblioteca_api.modelos.entidades;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
@@ -41,7 +43,8 @@ public class Autor {
   private String sobrenome;
   @NotBlank
   private String nacionalidade;
-
+  @JsonFormat(pattern = "dd/MM/yyyy")
+  @NotNull
   private LocalDate dataNascimento;
 
   @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)

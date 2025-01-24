@@ -7,7 +7,10 @@ import com.gerenciamento.biblioteca_api.modelos.mappers.AutorMapper;
 import com.gerenciamento.biblioteca_api.repositorios.AutorRepository;
 import com.gerenciamento.biblioteca_api.repositorios.LivrosRepository;
 import jakarta.persistence.EntityNotFoundException;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -45,25 +48,12 @@ public class AutorService {
   }
 
   public AutorDto cadastrar(AutorDto autorDto) {
-    Assert.notNull(autorDto, "Autor não pode ser nulo");
-    Assert.isNull(autorDto.getId(), "Id deve ser nulo");
+    this.validarAutorDto(autorDto);
+    this.validarFormatoData(autorDto.getDataNascimento());
 
     Autor autor = this.mapper.paraEntidade(autorDto);
 
-    List<Livros> livrosGerenciados = new ArrayList<>();
-    if (autor.getLivros() != null) {
-      for (Livros livro : autor.getLivros()) {
-        if (livro.getId() != null) {
-          Livros livroExistente = this.livrosRepository.findById(livro.getId())
-              .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado"));
-          livrosGerenciados.add(livroExistente);
-        } else {
-          livro.setAutor(autor);
-          livrosGerenciados.add(livro);
-        }
-      }
-    }
-    autor.setLivros(livrosGerenciados);
+    autor.setLivros(this.processarLivros(autor));
 
     autor = this.repository.save(autor);
 
@@ -95,5 +85,42 @@ public class AutorService {
     }
 
     this.repository.deleteById(id);
+  }
+
+
+  private void validarAutorDto(AutorDto autorDto) {
+    Assert.notNull(autorDto, "Autor não pode ser nulo");
+    Assert.isNull(autorDto.getId(), "Id deve ser nulo");
+
+    if (autorDto.getDataNascimento() == null) {
+      throw new IllegalArgumentException("Data de nascimento não pode ser nula");
+    }
+  }
+
+  private void validarFormatoData(LocalDate data) {
+
+    try {
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+      String dataFormatada = data.format(formatter);
+      LocalDate.parse(dataFormatada, formatter);
+    } catch (DateTimeParseException e) {
+      throw new IllegalArgumentException("Formato de data inválido. Use o formato dd/MM/yyyy");
+    }
+  }
+
+  private List<Livros> processarLivros(Autor autor) {
+    if (autor.getLivros() == null) {
+      return Collections.emptyList();
+    }
+
+    return autor.getLivros().stream().map(livro -> {
+      if (livro.getId() != null) {
+        return this.livrosRepository.findById(livro.getId()).orElseThrow(
+            () -> new EntityNotFoundException("Livro com ID " + livro.getId() + " não encontrado"));
+      } else {
+        livro.setAutor(autor);
+        return livro;
+      }
+    }).toList();
   }
 }
