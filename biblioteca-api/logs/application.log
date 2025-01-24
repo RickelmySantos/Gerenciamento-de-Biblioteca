@@ -1,0 +1,67 @@
+2025-01-24T10:50:53.230-03:00  INFO 87327 --- [main] c.g.b.BibliotecaApiApplication           : Starting BibliotecaApiApplication using Java 17.0.8.1 with PID 87327 (/home/rickelmy/Workspace/temp/java-data-structures/Gerenciamento-de-Biblioteca/biblioteca-api/target/classes started by rickelmy in /home/rickelmy/Workspace/temp/java-data-structures/Gerenciamento-de-Biblioteca/biblioteca-api)
+2025-01-24T10:50:53.231-03:00  INFO 87327 --- [main] c.g.b.BibliotecaApiApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-01-24T10:50:54.093-03:00  INFO 87327 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-24T10:50:54.093-03:00  INFO 87327 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-24T10:50:54.137-03:00  INFO 87327 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2025-01-24T10:50:54.305-03:00  INFO 87327 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-24T10:50:54.418-03:00  INFO 87327 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-01-24T10:50:54.420-03:00  INFO 87327 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-24T10:50:54.453-03:00  INFO 87327 --- [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:testdb (H2 2.3)
+2025-01-24T10:50:54.458-03:00  WARN 87327 --- [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.3.232 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.224.
+2025-01-24T10:50:54.470-03:00  INFO 87327 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "PUBLIC"."flyway_schema_history" does not exist yet
+2025-01-24T10:50:54.471-03:00  INFO 87327 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 0 migrations (execution time 00:00.005s)
+2025-01-24T10:50:54.472-03:00  WARN 87327 --- [main] o.f.core.internal.command.DbValidate     : No migrations found. Are your locations set up correctly?
+2025-01-24T10:50:54.479-03:00  INFO 87327 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2025-01-24T10:50:54.511-03:00  INFO 87327 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2025-01-24T10:50:54.514-03:00  INFO 87327 --- [main] o.f.core.internal.command.DbMigrate      : Schema "PUBLIC" is up to date. No migration necessary.
+2025-01-24T10:50:54.569-03:00  INFO 87327 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-24T10:50:54.602-03:00  INFO 87327 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-01-24T10:50:54.626-03:00  INFO 87327 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-24T10:50:54.829-03:00  WARN 87327 --- [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-01-24T10:50:54.838-03:00  INFO 87327 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-24T10:50:55.417-03:00  INFO 87327 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-24T10:50:55.686-03:00  WARN 87327 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-24T10:50:55.971-03:00  INFO 87327 --- [main] c.g.b.BibliotecaApiApplication           : Started BibliotecaApiApplication in 3.057 seconds (process running for 3.379)
+2025-01-24T10:51:19.749-03:00  INFO 87327 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-24T10:51:19.752-03:00  INFO 87327 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-24T10:53:44.119-03:00  INFO 88747 --- [main] c.g.b.BibliotecaApiApplication           : Starting BibliotecaApiApplication using Java 17.0.8.1 with PID 88747 (/home/rickelmy/Workspace/temp/java-data-structures/Gerenciamento-de-Biblioteca/biblioteca-api/target/classes started by rickelmy in /home/rickelmy/Workspace/temp/java-data-structures/Gerenciamento-de-Biblioteca/biblioteca-api)
+2025-01-24T10:53:44.121-03:00 DEBUG 88747 --- [main] c.g.b.BibliotecaApiApplication           : Running with Spring Boot v3.4.1, Spring v6.2.1
+2025-01-24T10:53:44.122-03:00  INFO 88747 --- [main] c.g.b.BibliotecaApiApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-01-24T10:53:44.928-03:00  INFO 88747 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-24T10:53:44.929-03:00  INFO 88747 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-24T10:53:44.967-03:00  INFO 88747 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2025-01-24T10:53:45.107-03:00  INFO 88747 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-24T10:53:45.222-03:00  INFO 88747 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2025-01-24T10:53:45.223-03:00  INFO 88747 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-24T10:53:45.260-03:00  INFO 88747 --- [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:testdb (H2 2.3)
+2025-01-24T10:53:45.264-03:00  WARN 88747 --- [main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.3.232 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.224.
+2025-01-24T10:53:45.276-03:00  INFO 88747 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "PUBLIC"."flyway_schema_history" does not exist yet
+2025-01-24T10:53:45.278-03:00  INFO 88747 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 0 migrations (execution time 00:00.006s)
+2025-01-24T10:53:45.278-03:00  WARN 88747 --- [main] o.f.core.internal.command.DbValidate     : No migrations found. Are your locations set up correctly?
+2025-01-24T10:53:45.284-03:00  INFO 88747 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2025-01-24T10:53:45.318-03:00  INFO 88747 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2025-01-24T10:53:45.320-03:00  INFO 88747 --- [main] o.f.core.internal.command.DbMigrate      : Schema "PUBLIC" is up to date. No migration necessary.
+2025-01-24T10:53:45.381-03:00  INFO 88747 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-24T10:53:45.420-03:00  INFO 88747 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-01-24T10:53:45.449-03:00  INFO 88747 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-24T10:53:45.633-03:00  WARN 88747 --- [main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-01-24T10:53:45.642-03:00  INFO 88747 --- [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-01-24T10:53:46.185-03:00  INFO 88747 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-24T10:53:46.470-03:00  WARN 88747 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-24T10:53:46.771-03:00  INFO 88747 --- [main] c.g.b.BibliotecaApiApplication           : Started BibliotecaApiApplication in 2.934 seconds (process running for 3.247)
+2025-01-24T10:53:55.406-03:00  INFO 88747 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-24T10:53:55.409-03:00  INFO 88747 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
