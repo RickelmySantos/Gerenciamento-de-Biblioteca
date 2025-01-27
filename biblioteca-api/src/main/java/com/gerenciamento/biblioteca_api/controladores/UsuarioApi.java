@@ -2,8 +2,6 @@ package com.gerenciamento.biblioteca_api.controladores;
 
 import com.gerenciamento.biblioteca_api.modelos.dtos.UsuarioDto;
 import com.gerenciamento.biblioteca_api.servicos.UsuarioService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -29,39 +27,27 @@ public class UsuarioApi {
 
   private final UsuarioService usuarioService;
 
-  @Operation(summary = "Cadastrar um usuário", description = "Cadastra um usuário na base de dados")
-  @ApiResponse(responseCode = "201", description = "Usuário cadastrado com sucesso")
   @PostMapping
   public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto) {
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(this.usuarioService.cadastrar(usuarioDto));
   }
 
-  @Operation(summary = "Listar todos os usuários",
-      description = "Lista todos os usuários cadastrados na base de dados")
-  @ApiResponse(responseCode = "200", description = "Usuários listados com sucesso")
   @GetMapping()
   public ResponseEntity<List<UsuarioDto>> listAll() {
     return ResponseEntity.ok(this.usuarioService.listAll());
   }
 
-  @Operation(summary = "Buscar usuário por ID",
-      description = "Busca um usuário na base de dados por ID")
-  @ApiResponse(responseCode = "200", description = "Usuário encontrado com sucesso")
   @GetMapping("/{id}")
   public ResponseEntity<UsuarioDto> buscarPorId(@PathVariable Long id) {
     return ResponseEntity.ok(this.usuarioService.buscarPorId(id));
   }
 
-  @Operation(summary = "Atualizar um usuário", description = "Atualiza um usuário na base de dados")
-  @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso")
   @PutMapping
   public ResponseEntity<UsuarioDto> atualizar(@RequestBody @Valid UsuarioDto usuarioDto) {
     return ResponseEntity.ok(this.usuarioService.atualizar(usuarioDto));
   }
 
-  @Operation(summary = "Deletar um usuário", description = "Deleta um usuário na base de dados")
-  @ApiResponse(responseCode = "204", description = "Usuário deletado com sucesso")
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deletar(@PathVariable Long id) {
     this.usuarioService.deletar(id);

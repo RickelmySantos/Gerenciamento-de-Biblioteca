@@ -23,9 +23,13 @@ spring:
 #swagger + openapi
 springdoc:
   api-docs:
+    groups:
+      enabled: true
     path: /api-docs
   swagger-ui:
     path: /swagger-ui
+    operations-sorter: alpha
+    tags-sorter: alpha
 
 openapi:
   title: API de Gerenciamento de Biblioteca
