@@ -20,6 +20,24 @@ spring:
       enabled: true
       path: /h2-console
 
+  # Configuração do Keycloak + security
+security:
+  oauth2:
+    client:
+      registration:
+        keycloak:
+          client-id: biblioteca-api
+          client-secret:
+          provider: keycloak
+          authorization-grant-type: authorization_code
+keycloak:
+  auth-server-url: http://localhost:8080/realms/biblioteca
+  realm: biblioteca
+  resource: biblioteca-api
+  credentials:
+    secret: YOUR_CLIENT_SECRET
+  principal-attribute: preferred_username
+
 #swagger + openapi
 springdoc:
   api-docs:

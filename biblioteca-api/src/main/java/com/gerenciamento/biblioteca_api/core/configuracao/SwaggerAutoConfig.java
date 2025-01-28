@@ -9,11 +9,10 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 @AutoConfiguration
-@ConditionalOnProperty("openapi.title")
+// @ConditionalOnProperty("openapi.title")
 @Slf4j
 public class SwaggerAutoConfig {
 
@@ -34,7 +33,7 @@ public class SwaggerAutoConfig {
 
   @PostConstruct
   public void init() {
-    SwaggerAutoConfig.log.debug("LOADED >>>> SwaggerAutoConfig");
+    SwaggerAutoConfig.log.info("LOADED >>>> SwaggerAutoConfig");
   }
 
   @Bean
