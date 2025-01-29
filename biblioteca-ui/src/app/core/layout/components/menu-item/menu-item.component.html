@@ -1,0 +1,50 @@
+<ng-container>
+    <ng-container *ngIf="!item.separator; else separator">
+        <label #tituloMenuItem [id]="uuid.generateId()" class="p-sr-only">{{'aria.menu.item' | translate}} {{item.label | translate}}</label>
+        <li [id]="uuid.generateId()" class="menu__item" role="listitem" [attr.aria-labelledby]="tituloMenuItem.id">
+            <!-- GROUP-->
+            <span id="item" tabContent role="menu" class="menu__group" *ngIf="root && !item.routerLink">
+                <span>{{item.label | translate}}</span>
+                <i aria-hidden="true" class="pi pi-ellipsis-h"></i>
+            </span>
+
+            <!-- ITEM -->
+            <a id="item" class="menu__link" *ngIf="!!item.url || (item.items && !root)" [href]="item.url" [attr.target]="item.target" pRipple [attr.target]="item.target">
+                <fa-icon aria-hidden="true" *ngIf="this.item.icon" [icon]="icon()" size="lg"></fa-icon>
+                <span>{{item.label | translate}}</span>
+            </a>
+
+            <a
+                id="item"
+                class="menu__link"
+                (click)="itemClick($event)"
+                *ngIf="!!item.routerLink || (item.items && !root)"
+                pRipple
+                [routerLink]="item.routerLink"
+                routerLinkActive="menu__link--activated"
+                [routerLinkActiveOptions]="item.routerLinkActiveOptions||{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
+                [fragment]="item.fragment"
+                [queryParamsHandling]="item.queryParamsHandling"
+                [preserveFragment]="item.preserveFragment"
+                [skipLocationChange]="item.skipLocationChange"
+                [replaceUrl]="item.replaceUrl"
+                [state]="item.state"
+                [queryParams]="item.queryParams"
+                [attr.target]="item.target">
+                <fa-icon aria-hidden="true" *ngIf="this.item.icon" [icon]="icon()" size="lg"></fa-icon>
+                <span>{{item.label | translate}}</span>
+            </a>
+
+            <!-- SUBMENU -->
+            <ng-container *ngIf="item.items">
+                <h3 #tituloSubmenu [id]="uuid.generateId()" class="p-sr-only">{{'aria.menu.submenu' | translate}} {{item.label | translate}}</h3>
+                <ul [id]="uuid.generateId()" class="menu__submenu" [ngClass]="{'menu__submenu--expanded': item.expanded}" role="list" [attr.aria-labelledby]="tituloSubmenu.id">
+                    <ng-container *ngFor="let subitem of item.items; let i=index">
+                        <app-menu-item [item]="subitem" [index]="i" [root]="false"></app-menu-item>
+                    </ng-container>
+                </ul>
+            </ng-container>
+        </li>
+    </ng-container>
+    <ng-template #separator><li aria-hidden="true" class="menu__separator"></li></ng-template>
+</ng-container>

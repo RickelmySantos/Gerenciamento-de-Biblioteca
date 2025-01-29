@@ -1,0 +1,58 @@
+*{
+  text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -webkit-text-rendering: optimizeLegibility;
+}
+
+html {
+  height: 100%;
+
+  font-size: 56.25%;
+  line-height: 1.5;
+
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-feature-settings: "normal";
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) var(--primary-color-text);
+
+
+   @include responsive(tablet-landscape) {
+        font-size: 62.5%;
+
+    @include responsive(notebook) {
+        font-size: 68.75%;
+    }
+
+    @include responsive(desktop) {
+
+        font-size: 68.75%;
+    }
+
+    @include responsive(tv) {
+        font-size: 75%;
+    }
+ }
+}
+
+body {
+    font-weight: $fontWeight;
+    font-feature-settings: "salt";
+    padding: 0;
+    margin: 0;
+    min-height: 100%;
+    box-sizing: border-box;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+}
