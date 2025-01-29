@@ -1,3 +1,22 @@
+# #!/bin/bash
+
+# # Aguarda o Keycloak iniciar
+# echo "Aguardando o Keycloak iniciar..."
+# until curl -s http://localhost:8080 > /dev/null; do
+#   sleep 5
+# done
+
+# # Verifica se o REALM já existe
+# REALM_EXISTS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/admin/realms/REALM_LOCAL)
+
+# if [ "$REALM_EXISTS" -eq 200 ]; then
+#   echo ">>>>>> REALM_LOCAL JÁ EXISTE <<<<<<"
+# else
+#   echo ">>>>>>>>IMPORTANDO O REALM..<<<<<<<<"
+#   /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/import/realm-export.json
+# fi
+
+
 #!/bin/bash
 
 # set +e
@@ -50,7 +69,7 @@ init()
 
 
                 echo "Configurando Client da Aplicação..."
-                appClientId="$(kcadm.sh create clients -r ${REALM_DEFAULT} -f ./import/clients/viajt-ui.json --id --config ./tmp/kcadm.config 2>/dev/null)"
+                appClientId="$(kcadm.sh create clients -r ${REALM_DEFAULT} -f ./import/clients/biblioteca-ui.json --id --config ./tmp/kcadm.config 2>/dev/null)"
                 echo "Client da Aplicação criado com sucesso: ${appClientId}"
 
 
