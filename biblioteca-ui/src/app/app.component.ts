@@ -10,6 +10,7 @@ import defaultLanguage from '../assets/i18n/pt.json';
     selector: 'app-root',
     template: `
         <router-outlet></router-outlet>
+        <!-- ###### -->
     `,
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
