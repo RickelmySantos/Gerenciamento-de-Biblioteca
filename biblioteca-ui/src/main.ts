@@ -10,7 +10,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { httpLoaderFactory } from 'src/app/core/translate/translate-loader-factory';
+import { APP_ICONS, AppIcons } from 'src/app/icons';
+import { APP_STYLES, AppStyles } from 'src/app/style';
 
 bootstrapApplication(AppComponent, {
     providers: [
@@ -35,5 +38,14 @@ bootstrapApplication(AppComponent, {
             },
             deps: [FaIconLibrary],
         },
+        {
+            provide: AuthService,
+            useFactory: () => {
+                const service = new AuthService();
+                return service;
+            },
+        },
+        { provide: APP_ICONS, useFactory: () => AppIcons },
+        { provide: APP_STYLES, useFactory: () => AppStyles },
     ],
 }).catch(e => console.error(e));

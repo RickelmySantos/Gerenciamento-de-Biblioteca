@@ -1,4 +1,4 @@
-import { User } from 'src/app/core/model/user.model';
+import { User } from 'src/app/core/modules/seguranca/model/user.model';
 import { AUTHORIZATION } from 'src/app/shared/auth/authorization';
 import { Permission } from 'src/app/shared/auth/permission.enum';
 import { Role } from 'src/app/shared/auth/role.enum';

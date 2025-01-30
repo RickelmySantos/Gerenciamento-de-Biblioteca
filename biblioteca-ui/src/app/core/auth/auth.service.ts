@@ -1,11 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, InjectionToken } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginOptions, OAuthService } from 'angular-oauth2-oidc';
-
-import { firstValueFrom, Observable } from 'rxjs';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Observable } from 'rxjs';
 import { hasPermission, hasRole } from 'src/app/core/auth/aut-util';
-import { User } from 'src/app/core/model/user.model';
+import { authConfig } from 'src/app/core/auth/auth-config';
+import { User } from 'src/app/core/modules/seguranca/model/user.model';
 import { UniqueDataStore } from 'src/app/core/store/unique-data.store';
 import { Permission } from 'src/app/shared/auth/permission.enum';
 import { Role } from 'src/app/shared/auth/role.enum';
@@ -17,92 +15,82 @@ export const AUTH_STORE = new InjectionToken<UniqueDataStore<User>>('AuthStore',
 
 @Injectable()
 export class AuthService {
-    router: Router = inject(Router);
-    // private readonly keycloackService: KeycloakService = inject(KeycloakService);
-
     private userProfile: User;
 
     private readonly oauthService: OAuthService = inject(OAuthService);
+
     private readonly userStore: UniqueDataStore<User> = inject(AUTH_STORE);
 
-    get user(): User {
-        return this.userStore.value;
+    constructor() {
+        this.oauthService.configure(authConfig);
+        this.oauthService.setupAutomaticSilentRefresh();
+
+        this.oauthService.disablePKCE = false;
     }
 
     get user$(): Observable<User> {
         return this.userStore.value$;
     }
 
-    login() {
-        this.oauthService.initCodeFlow();
+    get user(): User {
+        return this.userStore.value;
     }
 
-    logout() {
-        this.oauthService.revokeTokenAndLogout();
-    }
+    async initAuth(): Promise<void> {
+        try {
+            await this.oauthService.loadDiscoveryDocument();
 
-    userIsValid(user: User): boolean {
-        return user?.email.trim().length > 0;
-    }
+            // 🔹 Tenta autenticar automaticamente, sem redirecionar o usuário
+            await this.oauthService.tryLoginCodeFlow();
 
-    private async loadTokens(): Promise<boolean> {
-        return await this.oauthService.loadDiscoveryDocumentAndTryLogin({} as LoginOptions).catch(err => {
-            return this.oauthService.loadDiscoveryDocumentAndTryLogin();
-        });
-    }
+            // 🔹 Se o usuário já estiver autenticado, não faz nada
+            if (this.hasValidToken()) {
+                console.log('Usuário já autenticado, carregando aplicação...');
+                return;
+            }
 
-    private validToken(): boolean {
-        return this.oauthService.hasValidIdToken() && this.oauthService.hasValidAccessToken();
-    }
-
-    async userIsAuthenticated(): Promise<boolean> {
-        let user: User = await firstValueFrom(this.user$);
-
-        if (this.userIsValid(user)) {
-            return true;
+            // 🔹 Se não estiver autenticado, inicia o login
+            console.log('Usuário não autenticado, redirecionando para login...');
+            this.login();
+        } catch (error) {
+            console.error('Erro ao inicializar autenticação:', error);
+            this.login();
         }
+    }
 
-        const hasReceivedTokens: boolean = await this.loadTokens();
-        if (!hasReceivedTokens) {
+    async loadTokens(): Promise<boolean> {
+        try {
+            await this.oauthService.loadDiscoveryDocument();
+            await this.oauthService.tryLoginCodeFlow();
+            return this.hasValidToken();
+        } catch (error) {
+            console.error('Erro ao carregar tokens:', error);
             return false;
         }
-
-        user = await this.loadUserProfile();
-
-        return this.userIsValid(user);
     }
 
-    private async loadUserProfile(): Promise<User> {
-        if (this.validToken()) {
-            this.userProfile = await this.oauthService
-                .loadUserProfile()
-                .then(userProfile => {
-                    const user = {
-                        name: userProfile['info']['name'],
-                        email: userProfile['info']['email'],
-                        login: userProfile['info']['preferred_username'],
-                    } as User;
-                    return user;
-                })
-                .catch((err: HttpErrorResponse) => {
-                    return null;
-                });
-
-            this.userStore.value = this.userProfile;
-        }
-
-        return this.userProfile;
+    login(): void {
+        this.oauthService.initLoginFlow();
     }
 
-    hasRole(roles: keyof typeof Role | Role | (keyof typeof Role)[] | Role[]): boolean {
-        return hasRole(this.user, roles);
+    logout(): void {
+        this.oauthService.revokeTokenAndLogout();
+        this.clearUserProfile();
     }
 
-    hasAuthenticationPermission(permission: Permission | Permission[]): boolean {
-        return hasPermission(this.user, permission);
+    private hasValidToken(): boolean {
+        return this.oauthService.hasValidAccessToken();
     }
 
-    // hasAnyRole(roles: Role[]): boolean {
-    //     return roles.some(role => this.hasRole(role));
-    // }
+    authenticatedUserHasRoles(roles: keyof typeof Role | Role | (keyof typeof Role)[] | Role[]): boolean {
+        return this.user ? hasRole(this.user, roles) : false;
+    }
+
+    authenticatedUserHasPermissions(permissions: Permission | Permission[]): boolean {
+        return this.user ? hasPermission(this.user, permissions) : false;
+    }
+
+    private clearUserProfile(): void {
+        this.userStore.value = null;
+    }
 }
