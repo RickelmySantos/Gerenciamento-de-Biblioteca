@@ -6,6 +6,38 @@
     min-height: max-content;
 }
 
+.main-content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 7rem 20rem;
+    min-height: max-content;
+
+    @include responsive(mobile) {
+        padding: 5rem 2rem; // Ajuste para mobile (max-width: 500px)
+    }
+
+    @include responsive(tablet) {
+        padding: 5rem 4rem; // Ajuste para tablet (min-width: 600px)
+    }
+
+    @include responsive(tablet-landscape) {
+        padding: 4rem 8rem; // Ajuste para tablet landscape (min-width: 900px)
+    }
+
+    @include responsive(notebook) {
+        padding: 4rem 6rem; // Ajuste para notebook (min-width: 1200px)
+    }
+
+    @include responsive(desktop) {
+        padding: 7rem 20rem; // Ajuste para desktop (min-width: 1800px)
+    }
+
+    @include responsive(tv) {
+        padding: 7rem 38rem; // Ajuste para TV/huge desktop (min-width: 2400px)
+    }
+}
+
 .custom-scrollbar {
     &::-webkit-scrollbar {
         width: 6px;
@@ -19,5 +51,22 @@
 
     &::-webkit-scrollbar-thumb {
         background-color: #000000;
+    }
+}
+
+*:focus,
+[role="checkbox"]:hover,
+[role="button"]:hover,
+button:hover,
+a:hover {
+    outline: 0.3rem solid var(--primary-color) !important;
+    outline-offset: 0.2rem !important;
+}
+
+.menu {
+    *:focus,
+    button:hover,
+    a:hover {
+        outline-color: var(--primary-color-text) !important;
     }
 }

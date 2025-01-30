@@ -1,23 +1,24 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
-import { bootstrapApplication, BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
+
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { AppComponent } from './app/app.component';
-import { ROUTES } from './app/app.routes';
-import { httpLoaderFactory } from './app/core/translate/translate-loader-factory';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
+import { httpLoaderFactory } from 'src/app/core/translate/translate-loader-factory';
 
 bootstrapApplication(AppComponent, {
     providers: [
-        provideZoneChangeDetection({ eventCoalescing: true }),
-        provideRouter(ROUTES),
-        provideClientHydration(),
-        BrowserAnimationsModule,
-        BrowserModule,
-        CommonModule,
+        provideHttpClient(),
+        provideOAuthClient(),
         importProvidersFrom(
+            BrowserModule,
+            BrowserAnimationsModule,
             TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader,
@@ -26,5 +27,13 @@ bootstrapApplication(AppComponent, {
                 },
             })
         ),
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (library: FaIconLibrary) => {
+                library.addIconPacks(fas);
+                library.addIconPacks(far);
+            },
+            deps: [FaIconLibrary],
+        },
     ],
-}).catch(err => console.error(err));
+}).catch(e => console.error(e));

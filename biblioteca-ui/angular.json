@@ -15,43 +15,46 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:application",
+                    "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "outputPath": "dist/biblioteca-ui",
                         "index": "src/index.html",
-                        "browser": "src/main.ts",
+                        "main": "src/main.ts",
                         "polyfills": ["zone.js"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": ["src/assets"],
+                        "assets": ["src/favicon.ico", "src/assets"],
                         "styles": [
                             "src/assets/styles/styles.scss",
-                            "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-                            "node_modules/primeng/resources/primeng.min.css",
-                            "node_modules/primeflex/primeflex.css"
+                            { "input": "src/assets/styles/template/themes/light/theme.scss", "bundleName": "light-theme", "inject": false },
+                            { "input": "src/assets/styles/template/themes/dark/theme.scss", "bundleName": "dark-theme", "inject": false }
                         ],
-                        "scripts": []
+                        "scripts": [],
+                        "aot": true
                     },
                     "configurations": {
                         "production": {
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "500kB",
-                                    "maximumError": "1MB"
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "4kB",
-                                    "maximumError": "8kB"
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
                                 }
                             ],
                             "outputHashing": "all"
                         },
                         "development": {
+                            "buildOptimizer": false,
                             "optimization": false,
+                            "vendorChunk": true,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "namedChunks": true
                         }
                     },
                     "defaultConfiguration": "production"
@@ -60,16 +63,19 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "biblioteca-ui:build:production"
+                            "browserTarget": "biblioteca-ui:build:production"
                         },
                         "development": {
-                            "buildTarget": "biblioteca-ui:build:development"
+                            "browserTarget": "biblioteca-ui:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
                 },
                 "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n"
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "biblioteca-ui:build"
+                    }
                 },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
@@ -77,12 +83,7 @@
                         "polyfills": ["zone.js", "zone.js/testing"],
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": [
-                            {
-                                "glob": "**/*",
-                                "input": "public"
-                            }
-                        ],
+                        "assets": ["src/favicon.ico", "src/assets"],
                         "styles": ["src/styles.scss"],
                         "scripts": []
                     }
@@ -91,6 +92,6 @@
         }
     },
     "cli": {
-      "analytics": "d8354f48-f1a1-4078-81e8-6e311f7c3c82"
+      "analytics": "c08777c8-0161-4f71-b0f8-ab864890aeab"
     }
 }

@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, InjectionToken } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginOptions, OAuthService } from 'angular-oauth2-oidc';
-import { KeycloakService } from 'keycloak-angular';
+
 import { firstValueFrom, Observable } from 'rxjs';
 import { hasPermission, hasRole } from 'src/app/core/auth/aut-util';
 import { User } from 'src/app/core/model/user.model';
@@ -10,12 +10,15 @@ import { UniqueDataStore } from 'src/app/core/store/unique-data.store';
 import { Permission } from 'src/app/shared/auth/permission.enum';
 import { Role } from 'src/app/shared/auth/role.enum';
 
-export const AUTH_STORE = new InjectionToken<UniqueDataStore<User>>('AuthStore', { providedIn: 'root', factory: () => new UniqueDataStore<User>() });
+export const AUTH_STORE = new InjectionToken<UniqueDataStore<User>>('AuthStore', {
+    providedIn: 'root',
+    factory: () => new UniqueDataStore<User>(),
+});
 
 @Injectable()
 export class AuthService {
     router: Router = inject(Router);
-    private readonly keycloackService: KeycloakService = inject(KeycloakService);
+    // private readonly keycloackService: KeycloakService = inject(KeycloakService);
 
     private userProfile: User;
 
@@ -74,7 +77,11 @@ export class AuthService {
             this.userProfile = await this.oauthService
                 .loadUserProfile()
                 .then(userProfile => {
-                    const user = { name: userProfile['info']['name'], email: userProfile['info']['email'], login: userProfile['info']['preferred_username'] } as User;
+                    const user = {
+                        name: userProfile['info']['name'],
+                        email: userProfile['info']['email'],
+                        login: userProfile['info']['preferred_username'],
+                    } as User;
                     return user;
                 })
                 .catch((err: HttpErrorResponse) => {

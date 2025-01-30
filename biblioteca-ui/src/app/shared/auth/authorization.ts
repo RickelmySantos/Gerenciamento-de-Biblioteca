@@ -1,5 +1,5 @@
 import { Permission } from 'src/app/shared/auth/permission.enum';
-import { READ_SCOPE, USUARIO_ALL_SCOPE, WHITE_SCOPE } from 'src/app/shared/auth/scopes';
+import { READ_SCOPE, WHITE_SCOPE, USUARIO_ALL_SCOPE } from 'src/app/shared/auth/scope';
 
 export const AUTHORIZATION: { [roles: string]: Permission[] } = {
     DEFAULT: [...READ_SCOPE],

@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, inject, OnDest
 import { TranslateService } from '@ngx-translate/core';
 import { UUIDUtils } from 'src/app/core/util/uuid-utils';
 import { APP_ICONS } from 'src/app/icons';
-import { APP_STYLES } from 'src/style';
+import { APP_STYLES } from 'src/app/style';
 
 @Directive({ standalone: true })
 export class RefreshableComponent implements OnInit, AfterViewInit, OnDestroy {

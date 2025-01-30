@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { MenuService } from 'src/app/core/layout/service/menu.service';
 import { MENU } from 'src/app/menu';
 import defaultLanguage from '../assets/i18n/pt.json';
-import { MenuService } from 'src/app/core/layout/service/menu.service';
 
 @Component({
     selector: 'app-root',
@@ -16,7 +16,11 @@ import { MenuService } from 'src/app/core/layout/service/menu.service';
     imports: [RouterOutlet],
 })
 export class AppComponent {
-    constructor(private readonly translateService: TranslateService, private readonly menuService: MenuService) {
+    constructor(
+        private readonly translateService: TranslateService,
+
+        private readonly menuService: MenuService
+    ) {
         translateService.addLangs(['pt']);
         translateService.setTranslation('pt', defaultLanguage);
         translateService.setDefaultLang('pt');
@@ -26,6 +30,7 @@ export class AppComponent {
         const lang = browserLang.match(/pt/) ? browserLang : 'pt';
         this.changeLang(lang);
     }
+
     changeLang(lang: string): void {
         this.translateService.use(lang);
     }
