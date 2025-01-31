@@ -2,7 +2,7 @@ import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/h
 import { inject } from '@angular/core';
 import { OAuthStorage } from 'angular-oauth2-oidc';
 
-import { environment } from 'src/environments/environments';
+import { environment } from 'src/environments/environment';
 
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
     console.debug(`[AuthInterceptor] Interceptada a requisição [${req.method}] ${req.url} `);

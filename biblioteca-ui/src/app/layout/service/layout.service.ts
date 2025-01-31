@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LAYOUT_STATE, LayoutState } from 'src/app/core/layout/state/layout.state';
 import { DataStore } from 'src/app/core/store/data.store';
+import { LAYOUT_STATE, LayoutState } from 'src/app/layout/state/layout.state';
 
 enum ResponsiveBreakpoints {
     TABLET = 600,

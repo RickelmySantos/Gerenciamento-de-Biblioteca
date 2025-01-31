@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EmptyPageComponent } from 'src/app/core/components/page-layout/empty-page.component';
 import { BaseComponent } from 'src/app/core/util/base.component';

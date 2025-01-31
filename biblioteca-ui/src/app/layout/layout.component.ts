@@ -1,11 +1,11 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from 'src/app/core/layout/components/footer/footer.component';
-import { SidebarComponent } from 'src/app/core/layout/components/sidebar/sidebar.component';
-import { TopbarComponent } from 'src/app/core/layout/components/topbar/topbar.component';
-import { LayoutService } from 'src/app/core/layout/service/layout.service';
 import { BaseComponent } from 'src/app/core/util/base.component';
+import { FooterComponent } from 'src/app/layout/components/footer/footer.component';
+import { SidebarComponent } from 'src/app/layout/components/sidebar/sidebar.component';
+import { TopbarComponent } from 'src/app/layout/components/topbar/topbar.component';
+import { LayoutService } from 'src/app/layout/service/layout.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
@@ -24,6 +24,7 @@ export class LayoutComponent extends BaseComponent {
     }
 
     override ngOnInit(): void {
+        console.log('LayoutComponent foi carregado');
         super.ngOnInit();
         this.configSideBar();
     }

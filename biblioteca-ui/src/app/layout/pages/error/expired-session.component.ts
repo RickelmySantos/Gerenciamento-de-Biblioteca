@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { AuthService } from 'src/app/core/auth/auth.service';
-import { BaseComponent } from 'src/app/core/components/base.component';
+import { BaseComponent } from 'src/app/core/util/base.component';
 import { ErrorDetailsComponent } from 'src/app/layout/pages/error/components/error-details.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -11,7 +11,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     template: `
         <div class="h-full flex justify-content-center align-items-center">
             <div class="w-8 md:w-5">
-                <app-error-details image="timeout" [title]="'mensagem.error.sessao-expirada.titulo' | translate" [description]="'mensagem.error.sessao-expirada.mensagem' | translate">
+                <app-error-details
+                    image="timeout"
+                    [title]="'mensagem.error.sessao-expirada.titulo' | translate"
+                    [description]="'mensagem.error.sessao-expirada.mensagem' | translate"
+                >
                     <button pButton pRipple class="p-button-lg" (click)="authService.login()">
                         <fa-icon [icon]="icons.core.login" size="lg" class="mr-2"></fa-icon>
                         {{ 'botao.login' | translate }}

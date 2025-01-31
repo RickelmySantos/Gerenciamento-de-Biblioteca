@@ -2,7 +2,15 @@
     <nav class="topbar__start">
         <ul class="topbar__buttons">
             <li>
-                <a [id]="uuid.generateId" #toggleSidebarButton pRipple role="button" aria-label="" [attr.aria-expanded]="layout.state.sidebarExpanded" (click)="layoutService.toogleSidebar()">
+                <a
+                    [id]="uuid.generateId"
+                    #toggleSidebarButton
+                    pRipple
+                    role="button"
+                    aria-label=""
+                    [attr.aria-expanded]="layout.state.sidebarExpanded"
+                    (click)="layoutService.toogleSidebar()"
+                >
                     <fa-icon aria-hidden="true" [icon]="icons.core.menu" size="lg"></fa-icon>
                 </a>
             </li>

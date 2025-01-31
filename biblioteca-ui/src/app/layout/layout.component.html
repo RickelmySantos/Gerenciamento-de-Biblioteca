@@ -1,1 +1,20 @@
-<h1>DEFAULT PAGE</h1>
+<ng-container *ngIf="{ value: layoutService.state$ | async} as state">
+    <div
+        id="container"
+        class="container"
+        [ngClass]="{'sidebar--hidden': !state.value?.sidebarVisible, 'sidebar--extended': state.value?.sidebarExpanded, 'sidebar--fixed': state.value?.sidebarPinned, 'statusbar--hidden': true}"
+    >
+        <app-sidebar></app-sidebar>
+        <div class="page-container">
+            <app-topbar></app-topbar>
+            <div class="content-wrapper">
+                <main class="content-container">
+                    <div class="fluid-content">
+                        <router-outlet></router-outlet>
+                    </div>
+                </main>
+                <app-footer></app-footer>
+            </div>
+        </div>
+    </div>
+</ng-container>

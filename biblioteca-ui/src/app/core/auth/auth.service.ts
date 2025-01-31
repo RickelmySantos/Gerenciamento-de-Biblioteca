@@ -40,17 +40,12 @@ export class AuthService {
         try {
             await this.oauthService.loadDiscoveryDocument();
 
-            // 🔹 Tenta autenticar automaticamente, sem redirecionar o usuário
             await this.oauthService.tryLoginCodeFlow();
 
-            // 🔹 Se o usuário já estiver autenticado, não faz nada
             if (this.hasValidToken()) {
                 console.log('Usuário já autenticado, carregando aplicação...');
                 return;
             }
-
-            // 🔹 Se não estiver autenticado, inicia o login
-            console.log('Usuário não autenticado, redirecionando para login...');
             this.login();
         } catch (error) {
             console.error('Erro ao inicializar autenticação:', error);

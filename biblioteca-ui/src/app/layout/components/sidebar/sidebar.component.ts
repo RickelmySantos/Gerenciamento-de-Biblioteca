@@ -1,8 +1,8 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { MenuComponent } from 'src/app/core/layout/components/menu/menu.component';
-import { LayoutService } from 'src/app/core/layout/service/layout.service';
 import { BaseComponent } from 'src/app/core/util/base.component';
+import { MenuComponent } from 'src/app/layout/components/menu/menu.component';
+import { LayoutService } from 'src/app/layout/service/layout.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({

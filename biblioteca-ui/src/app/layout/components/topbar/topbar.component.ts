@@ -1,7 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { LayoutService } from 'src/app/core/layout/service/layout.service';
 import { BaseComponent } from 'src/app/core/util/base.component';
+import { LayoutService } from 'src/app/layout/service/layout.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({

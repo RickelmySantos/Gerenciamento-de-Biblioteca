@@ -1,8 +1,8 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuService } from 'src/app/core/layout/service/menu.service';
 import { BaseComponent } from 'src/app/core/util/base.component';
+import { MenuService } from 'src/app/layout/service/menu.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 

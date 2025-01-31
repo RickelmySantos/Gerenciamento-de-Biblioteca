@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { distinctUntilChanged, Observable, shareReplay, take } from 'rxjs';
 import { Entity } from 'src/app/core/models/entity.model';
 import { ResultList } from 'src/app/core/pagination/result-list';
-import { environment } from 'src/environments/environments';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export abstract class QueryService<E extends Entity<any>> {

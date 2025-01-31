@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { MENU_STATE, MenuState } from 'src/app/core/layout/state/menu.state';
 import { DataStore } from 'src/app/core/store/data.store';
+import { MENU_STATE, MenuState } from 'src/app/layout/state/menu.state';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
