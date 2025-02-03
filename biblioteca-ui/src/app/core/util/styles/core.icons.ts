@@ -30,6 +30,8 @@ export type CoreIconsType = {
     readonly aplicacoes: IconProp;
     readonly logo: IconProp;
     readonly favoritos: IconProp;
+
+    readonly livros: IconProp;
 };
 
 export const CoreIcons: CoreIconsType = {
@@ -61,4 +63,6 @@ export const CoreIcons: CoreIconsType = {
     aplicacoes: IconUtils.iconProp('fas', 'sitemap'),
     logo: IconUtils.iconProp('fas', 'image'),
     favoritos: IconUtils.iconProp('far', 'star'),
+
+    livros: IconUtils.iconProp('fas', 'book'),
 };
