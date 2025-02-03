@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BaseComponent } from 'src/app/core/util/base.component';
+import { Livro } from 'src/app/models/livro.model';
+import { LivroService } from 'src/app/services/livroService.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CardRenderComponent } from 'src/app/shared/util/card/card-render.component';
 
 @Component({
     selector: 'app-livros',
@@ -8,6 +12,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
         <div class=" fluid-content border-1 bg-white">
             <section class="border-1">
                 <h1 class="text-2xl">Recomendados</h1>
+                <article>
+                    <ng-container *ngIf="">
+                        <app-card-render />
+                    </ng-container>
+                </article>
             </section>
             <section>teste2</section>
         </div>
@@ -15,41 +24,17 @@ import { SharedModule } from 'src/app/shared/shared.module';
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    imports: [SharedModule],
+    imports: [SharedModule, CardRenderComponent],
 })
 export class LivrosComponent extends BaseComponent {
-    recommendedBooks = [
-        {
-            title: 'The Psychology of Money',
-            author: 'Morgan Housel',
-            image: 'assets/images/psychology_of_money.jpg',
-            pages: 320,
-            rating: 4.8,
-            description: 'A fantastic book on financial thinking.',
-        },
-        // Outros livros...
-    ];
+    livros$: Observable<Livro[]>;
 
-    categories = ['All', 'Sci-Fi', 'Fantasy', 'Drama', 'Business', 'Education', 'Geography'];
-
-    selectedCategory = 'All';
-
-    books = [
-        { title: 'The Bees', author: 'Laline Paull', image: 'link-to-image', category: 'Sci-Fi' },
-        { title: 'The Fact of a Body', author: 'Alexandria Marzano', image: 'link-to-image', category: 'Drama' },
-        // Outros livros
-    ];
-
-    filteredBooks = this.books;
-
-    selectedBook = this.recommendedBooks[0];
-
-    filterByCategory(category: string) {
-        this.selectedCategory = category;
-        this.filteredBooks = category === 'All' ? this.books : this.books.filter(book => book.category === category);
+    constructor(private livroService: LivroService) {
+        super();
     }
 
-    selectBook(book: any) {
-        this.selectedBook = book;
+    override ngOnInit(): void {
+        this.livros$ = this.livroService.buscarLivros();
+        console.log('livros >>>>>', this.livros$.subscribe());
     }
 }

@@ -31,7 +31,7 @@ import { CardComponent } from 'src/app/shared/util/card/card.component';
             </ng-template>
         </section>
     `,
-    styles: [':host:{display:block;}'],
+    styles: [':host { display: block; }'],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

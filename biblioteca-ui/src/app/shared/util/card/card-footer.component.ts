@@ -8,7 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     template: `
         <!-- ACTION BUTTONS -->
     `,
-    styles: [':host:{display:block;}'],
+    styles: [':host {display:block;}'],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

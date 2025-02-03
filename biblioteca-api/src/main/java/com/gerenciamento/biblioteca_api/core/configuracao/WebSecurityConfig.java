@@ -4,12 +4,14 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @RequiredArgsConstructor
 @AutoConfiguration
@@ -22,10 +24,16 @@ public class WebSecurityConfig {
     WebSecurityConfig.log.info("LOADED >>>>> WebSecurityConfig");
   }
 
+  @Bean
+  MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+    return new MvcRequestMatcher.Builder(introspector);
+  }
+
+
   public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc)
       throws Exception {
 
-    WebSecurityConfig.log.info("LOADED >>>>> SecurityFilterChain");
+    WebSecurityConfig.log.debug("LOADED >>>>> SecurityFilterChain");
 
     http.csrf(csrf -> csrf.disable());
     http.cors(cors -> Customizer.withDefaults());
@@ -40,10 +48,13 @@ public class WebSecurityConfig {
           // APP
           .anyRequest().authenticated();
     });
+
     http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()));
     http.sessionManagement(
         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
     return http.build();
   }
+
+
 }
