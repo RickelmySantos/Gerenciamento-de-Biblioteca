@@ -3,21 +3,26 @@ package com.gerenciamento.biblioteca_api.core.configuracao;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @RequiredArgsConstructor
-@AutoConfiguration
 @EnableWebSecurity
 @Slf4j
+@AutoConfiguration
 public class WebSecurityConfig {
+  @Value("${security.oauth2.resourceserver.jwt.jwk-set-uri}")
+  private String jwkSetUri;
 
   @PostConstruct
   public void init() {
@@ -29,7 +34,7 @@ public class WebSecurityConfig {
     return new MvcRequestMatcher.Builder(introspector);
   }
 
-
+  @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc)
       throws Exception {
 
@@ -49,11 +54,17 @@ public class WebSecurityConfig {
           .anyRequest().authenticated();
     });
 
-    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()));
+    // http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()));
+    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(this.jwtDecoder())));
     http.sessionManagement(
         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
     return http.build();
+  }
+
+  @Bean
+  public JwtDecoder jwtDecoder() {
+    return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
   }
 
 

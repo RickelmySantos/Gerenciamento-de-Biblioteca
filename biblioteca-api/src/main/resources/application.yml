@@ -32,6 +32,9 @@ spring:
   # Configuração do Keycloak + security
 security:
   oauth2:
+    resourceserver:
+      jwt:
+        jwk-set-uri: http://localhost:8280/auth/realms/biblioteca/protocol/openid-connect/certs
     client:
       registration:
         keycloak:
