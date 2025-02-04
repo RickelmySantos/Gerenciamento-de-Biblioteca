@@ -1,0 +1,28 @@
+### DOWNLOAD DEPENDENCIES
+FROM maven:3.9.2-eclipse-temurin-17-alpine AS dependencies
+WORKDIR /root
+WORKDIR /root/app
+COPY pom.xml .
+RUN --mount=type=cache,target=~/.m2/repository mvn -B -T 1C -Dmaven.artifact.threads=25 dependency:go-offline verify --fail-never -DskipTests && rm -rf ./target
+
+### BUILD APP
+FROM dependencies AS build
+COPY src src
+RUN --mount=type=cache,target=~/app/target mvn -B -T 1C -Pdeploy -DskipTests clean package && java -Djarmode=layertools -jar ./target/biblioteca-api-0.0.1-SNAPSHOT.jar extract --destination ./target/layers && rm -rf ~/.m2/repository && find target -mindepth 1 -not -path 'target/layers*' -not -path 'target/*.jar' -prune -delete
+
+### BUILD DOCKER IMAGE
+FROM eclipse-temurin:17-jre-alpine AS image
+RUN --mount=type=cache,target=/var/cache/apk apk add --no-cache dumb-init
+
+# don't run container as root
+RUN addgroup -S appuser && adduser -S appuser -G appuser
+WORKDIR /app
+
+# copy layers
+COPY --from=build /root/app/target/layers/dependencies/ ./
+COPY --from=build /root/app/target/layers/snapshot-dependencies/ ./
+COPY --from=build /root/app/target/layers/application/ ./
+
+EXPOSE 8080
+USER appuser
+CMD ["dumb-init", "java", "org.springframework.boot.loader.JarLauncher"]

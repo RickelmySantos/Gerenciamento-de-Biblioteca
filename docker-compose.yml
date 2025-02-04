@@ -51,6 +51,26 @@ services:
     networks:
       - local-network
 
+  biblioteca-api:
+    image: biblioteca-api
+    build:
+      context: biblioteca-api
+      dockerfile: Dockerfile.backend
+    container_name: biblioteca-api-local
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-local:5432/localdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - keycloak-local
+      - postgres-local
+    networks:
+      - local-network
+    ports:
+      - "8080:8080"
+
 networks:
   local-network:
     driver: bridge

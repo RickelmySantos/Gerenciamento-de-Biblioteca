@@ -17,16 +17,22 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @RequiredArgsConstructor
-@EnableWebSecurity
-@Slf4j
 @AutoConfiguration
+@EnableWebSecurity
+// @EnableMethodSecurity(securedEnabled = true)
+@Slf4j
 public class WebSecurityConfig {
   @Value("${security.oauth2.resourceserver.jwt.jwk-set-uri}")
   private String jwkSetUri;
 
+  @Value("${security.enabled:false}")
+  protected Boolean securityEnabled;
+
+
   @PostConstruct
   public void init() {
     WebSecurityConfig.log.info("LOADED >>>>> WebSecurityConfig");
+    WebSecurityConfig.log.info("Security Enabled: " + this.securityEnabled);
   }
 
   @Bean
