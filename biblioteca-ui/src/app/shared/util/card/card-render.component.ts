@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, Output } from '@angular/core';
 import { RefreshableComponent } from 'src/app/core/util/refreshable.component';
 import { Livro } from 'src/app/models/livro.model';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -18,7 +18,7 @@ import { CardComponent } from 'src/app/shared/util/card/card.component';
             <ng-container *ngIf="data?.length; else noItems">
                 <div class="flex flex-wrap gap-6 ml-4 ">
                     <ng-container *ngFor="let data of data; let i = index">
-                        <app-card [livro]="data">
+                        <app-card [livro]="data" (click)="onSelectLivro(data)">
                             <ng-container ft-buttons>
                                 <app-card-footer [livro]="data"></app-card-footer>
                             </ng-container>
@@ -49,4 +49,11 @@ export class CardRenderComponent extends RefreshableComponent {
 
     @Input()
     emptyMessage: string = 'Nenhum Livro encontrado!';
+
+    @Output()
+    selectLivro = new EventEmitter<Livro>();
+
+    onSelectLivro(livro: Livro): void {
+        this.selectLivro.emit(livro);
+    }
 }

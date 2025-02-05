@@ -153,5 +153,24 @@
             "id": "Código",
             "titulo": "Título"
         }
+    },
+    "livro": {
+        "titulo": {
+            "singular": "Livro",
+            "plural": "Livros"
+        },
+        "campo": {
+            "titulo": "Título",
+            "autor": "Autor",
+            "editora": "Editora",
+            "ano": "Ano",
+            "idioma": "Idioma",
+            "paginas": "Páginas",
+            "disponivel": "Disponível",
+            "reservado": "Reservado",
+            "emprestado": "Emprestado",
+            "dataCadastro": "Data de Cadastro",
+            "dataAtualizacao": "Data de Atualização"
+        }
     }
 }

@@ -8,12 +8,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     selector: 'app-card',
     template: `
         <article class="card-content">
-            <img
-                src="https://primefaces.org/cdn/primeng/images/card-ng.jpg"
-                alt="imagem do primeng"
-                class="shadow-2 border-round-xl"
-                style="max-width: 280px; max-height: 280px; width: auto; height: auto; position: center;"
-            />
+            <!-- <img src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" alt="imagem do primeng" class="shadow-2 border-round-xl" /> -->
+            <img src="assets/images/clean-code.png" alt="iamgem" class="shadow-2 border-round-xl" />
 
             <section class="info">
                 <h3>{{ hover ? livro?.titulo + ' - ' + livro?.titulo : livro?.editora }}</h3>

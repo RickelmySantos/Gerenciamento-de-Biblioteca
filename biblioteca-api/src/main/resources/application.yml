@@ -81,7 +81,6 @@ openapi:
 # configurações de logging
 logging:
   level:
-    com.amazonaws: error
     org:
       flywaydb: info
       hibernate: info

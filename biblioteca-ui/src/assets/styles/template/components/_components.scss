@@ -1,7 +1,8 @@
 .fluid-content {
     display: flex;
     flex: 1 1 auto;
-    flex-direction: column;
+    // flex-direction: column;
+    flex-direction: row;
     width: 100%;
     min-height: max-content;
 }
