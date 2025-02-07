@@ -9,26 +9,33 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 @AutoConfiguration
-// @ConditionalOnProperty("openapi.title")
+@ConditionalOnProperty("openapi.title")
 @Slf4j
 public class SwaggerAutoConfig {
 
   @Value("${openapi.title}")
   private String apiTitle;
+
   @Value("${openapi.description}")
   private String apiDescription;
+
   @Value("${openapi.version}")
   private String apiVersion;
+
   @Value("${openapi.contact.name}")
   private String apiContactName;
-  @Value("${openapi.contact.email}")
-  private String apiContactUrl;
+
   @Value("${openapi.contact.url}")
+  private String apiContactUrl;
+
+  @Value("${app.base-url}")
   private String serverUrl;
-  @Value("${openapi.license.name}")
+
+  @Value("${server.servlet.context-path}")
   private String contextPath;
 
   @PostConstruct

@@ -1,9 +1,13 @@
 {
-    "singleQuote": true,
-    "printWidth": 140,
-    "trailingComma": "es5",
-    "arrowParens": "avoid",
     "tabWidth": 4,
+    "useTabs": false,
+    "singleQuote": true,
+    "semi": true,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "trailingComma": "es5",
+    "bracketSameLine": true,
+    "printWidth": 200,
     "embeddedLanguageFormatting": "auto",
     "htmlWhitespaceSensitivity": "ignore",
     "overrides": [

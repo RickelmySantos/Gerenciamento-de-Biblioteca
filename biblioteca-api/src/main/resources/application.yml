@@ -31,6 +31,7 @@ spring:
         drop-target: target/drop.sql
   # Configuração do Keycloak + security
 security:
+  enabled: false
   oauth2:
     resourceserver:
       jwt:
@@ -50,7 +51,7 @@ security:
 keycloak:
   auth-server-url: http://localhost:8280
   realm: biblioteca
-  resource: biblioteca-api
+  resource: biblioteca-ui
   credentials:
     ssl-required: external
     bearer-only: true
@@ -75,8 +76,9 @@ openapi:
     name: RSDesenvolvimento
     url: https://rsdesenvolvimento.com.br
     email: rsdesenvolvimento@gmail.com
-  license:
-    name: Apache License 2.0
+
+# keycloak:
+#   resource: ${OAUTH_CLIENT_ID:biblioteca-ui}
 
 # configurações de logging
 logging:

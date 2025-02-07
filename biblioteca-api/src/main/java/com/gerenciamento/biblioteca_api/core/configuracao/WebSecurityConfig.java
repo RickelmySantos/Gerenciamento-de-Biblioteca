@@ -47,24 +47,27 @@ public class WebSecurityConfig {
     WebSecurityConfig.log.debug("LOADED >>>>> SecurityFilterChain");
 
     http.csrf(csrf -> csrf.disable());
-    http.cors(cors -> Customizer.withDefaults());
-    http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
-    http.authorizeHttpRequests(authorizeRequests -> {
-      authorizeRequests.requestMatchers(mvc.pattern("/v3/api-docs")).permitAll()
-          .requestMatchers(mvc.pattern("/swagger-resources/**")).permitAll()
-          .requestMatchers(mvc.pattern("/swagger-ui/**")).permitAll()
-          .requestMatchers(mvc.pattern("/swagger-ui/index.html**")).permitAll()
-          .requestMatchers(mvc.pattern("/actuator/health")).permitAll()
-          // APP
-          .anyRequest().authenticated();
-    });
+    if (this.isSecurityDisabled()) {
+      http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+      http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().permitAll());
+    } else {
+      http.cors(cors -> Customizer.withDefaults());
+      http.authorizeHttpRequests(authorizeRequests -> {
+        authorizeRequests.requestMatchers(mvc.pattern("/v3/api-docs")).permitAll()
+            .requestMatchers(mvc.pattern("/swagger-resources/**")).permitAll()
+            .requestMatchers(mvc.pattern("/swagger-ui/**")).permitAll()
+            .requestMatchers(mvc.pattern("/swagger-ui/index.html**")).permitAll()
+            .requestMatchers(mvc.pattern("/actuator/health")).permitAll()
+            // APP
+            .anyRequest().authenticated();
+      });
 
-    // http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()));
-    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(this.jwtDecoder())));
-    http.sessionManagement(
-        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+      // http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()));
+      http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(this.jwtDecoder())));
+      http.sessionManagement(
+          session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    }
     return http.build();
   }
 
@@ -74,4 +77,7 @@ public class WebSecurityConfig {
   }
 
 
+  private Boolean isSecurityDisabled() {
+    return this.securityEnabled != null && !this.securityEnabled;
+  }
 }

@@ -9,9 +9,9 @@ import { CardComponent } from 'src/app/shared/util/card/card.component';
 @Component({
     selector: 'app-card-render',
     template: `
-        <section class="flex flex-column mt-3 mb-4">
-            <header class=" flex flex-1 gap-4 align-content-center">
-                <h2 class="text-4xl font-bold mb-5 ml-1">{{ title }}</h2>
+        <section class="flex flex-column ">
+            <header class=" flex flex-1 gap-4 align-content-center mx-4 mt-6">
+                <h2 class="text-3xl font-semibold mb-5 ml-1">{{ title }}</h2>
                 <ng-content></ng-content>
             </header>
 

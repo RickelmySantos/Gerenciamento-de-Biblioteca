@@ -11,38 +11,52 @@ import { CardRenderComponent } from 'src/app/shared/util/card/card-render.compon
 @Component({
     selector: 'app-livros',
     template: `
-        <div class="fluid-content  p-4">
-            <section class="lista-livros">
-                <h2 class="text-2xl">RECOMENDADOS</h2>
-                <article class="livros">
-                    <app-card-render [data]="livros$ | async" (selectLivro)="selecionarLivro($event)"></app-card-render>
-                </article>
-            </section>
-            <section class="livros-detalhes" *ngIf="livroSelecionado">
+        <div class="flex w-full h-full">
+            <main class="fluid-content p-4 border-round-2xl flex flex-column gap-4">
+                <section class="lista-livros">
+                    <app-card-render
+                        [title]="'RECOMENDADOS'"
+                        [data]="livros$ | async"
+                        (selectLivro)="selecionarLivro($event)"
+                    ></app-card-render>
+                </section>
+
+                <section class="lista-livros">
+                    <app-card-render
+                        [title]="'CATEGORIAS'"
+                        [data]="livros$ | async"
+                        (selectLivro)="selecionarLivro($event)"
+                    ></app-card-render>
+                </section>
+            </main>
+
+            <aside class="livros-detalhes" *ngIf="livroSelecionado">
                 <div class="detalhes">
-                    <img src="assets/images/clean-code.png" alt="Livro" />
-                    <h3>{{ livroSelecionado.titulo }}</h3>
-                    <p class="autor">{{ livroSelecionado.autor.nome }}</p>
+                    <img src="assets/images/clean-code.png" alt="{{ livroSelecionado.titulo }}" />
+                    <h3 class="livro-titulo">{{ livroSelecionado.titulo }}</h3>
+                    <p class="livro-autor">{{ livroSelecionado.autor.nome }}</p>
+
                     <div class="avaliacoes">
                         <span class="stars">⭐⭐⭐⭐⭐</span>
                         <span class="avaliacao">4.8</span>
                     </div>
+
                     <div class="stats">
                         <div class="stat">
-                            <p>230</p>
-                            <span>paginas</span>
+                            <p class="stat-value">230</p>
+                            <span class="stat-label">Páginas</span>
                         </div>
                         <div class="stat">
-                            <p>4300</p>
-                            <span>Avaliações</span>
+                            <p class="stat-value">4300</p>
+                            <span class="stat-label">Avaliações</span>
                         </div>
                         <div class="stat">
-                            <p>{{ livroSelecionado.idioma }}</p>
+                            <p class="stat-value">{{ livroSelecionado.idioma }}</p>
                         </div>
                     </div>
                 </div>
                 <p class="descricao">{{ livroSelecionado.descricao }}</p>
-            </section>
+            </aside>
         </div>
     `,
     standalone: true,
@@ -59,7 +73,7 @@ export class LivrosComponent extends BaseComponent {
     }
 
     override ngOnInit(): void {
-        this.livros$ = this.livroService.buscarLivros().pipe(map(livros => livros.slice(0, 6)));
+        this.livros$ = this.livroService.buscarLivros().pipe(map(livros => livros.slice(0, 5)));
     }
 
     selecionarLivro(livro: Livro): void {
