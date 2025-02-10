@@ -20,7 +20,7 @@ public class LivrosDto {
   private String editora;
   private String idioma;
   private String genero;
-  private AutorDto autorDto;
+  private AutorDto autor;
 
   private List<EmprestimoDto> emprestimo;
 

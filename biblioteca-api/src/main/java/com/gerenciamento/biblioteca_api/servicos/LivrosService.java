@@ -28,9 +28,9 @@ public class LivrosService {
   public LivrosDto cadastrar(LivrosDto livroDto) {
     Assert.notNull(livroDto, "Livro não pode ser nulo");
     Assert.isNull(livroDto.getId(), "Id deve ser nulo");
-    Assert.notNull(livroDto.getAutorDto().getId(), "AutorId não pode ser nulo");
+    Assert.notNull(livroDto.getAutor().getId(), "AutorId não pode ser nulo");
 
-    Autor autor = this.autorRepository.findById(livroDto.getAutorDto().getId())
+    Autor autor = this.autorRepository.findById(livroDto.getAutor().getId())
         .orElseThrow(() -> new IllegalArgumentException("Autor não encontrado"));
 
     Livros livro = this.mapper.paraEntidade(livroDto);

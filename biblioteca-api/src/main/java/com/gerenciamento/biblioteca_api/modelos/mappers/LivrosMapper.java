@@ -10,14 +10,14 @@ import org.mapstruct.Mapping;
 public interface LivrosMapper extends BaseMapper<LivrosDto, Livros> {
 
   @Override
-  @Mapping(source = "autorDto.id", target = "autor.id")
+  @Mapping(source = "autor.id", target = "autor.id")
   Livros paraEntidade(LivrosDto dto);
 
 
   @Override
-  @Mapping(source = "autor.id", target = "autorDto.id")
-  @Mapping(source = "autor.nome", target = "autorDto.nome")
-  @Mapping(source = "autor.sobrenome", target = "autorDto.sobrenome")
+  @Mapping(source = "autor.id", target = "autor.id")
+  @Mapping(source = "autor.nome", target = "autor.nome")
+  @Mapping(source = "autor.sobrenome", target = "autor.sobrenome")
   LivrosDto paraDto(Livros entity);
 
 }

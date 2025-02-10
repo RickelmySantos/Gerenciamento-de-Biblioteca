@@ -14,19 +14,11 @@ import { CardRenderComponent } from 'src/app/shared/util/card/card-render.compon
         <div class="flex w-full h-full">
             <main class="fluid-content p-4 border-round-2xl flex flex-column gap-4">
                 <section class="lista-livros">
-                    <app-card-render
-                        [title]="'RECOMENDADOS'"
-                        [data]="livros$ | async"
-                        (selectLivro)="selecionarLivro($event)"
-                    ></app-card-render>
+                    <app-card-render [title]="'RECOMENDADOS'" [data]="livros$ | async" (selectLivro)="selecionarLivro($event)"></app-card-render>
                 </section>
 
                 <section class="lista-livros">
-                    <app-card-render
-                        [title]="'CATEGORIAS'"
-                        [data]="livros$ | async"
-                        (selectLivro)="selecionarLivro($event)"
-                    ></app-card-render>
+                    <app-card-render [title]="'CATEGORIAS'" [data]="livros$ | async" (selectLivro)="selecionarLivro($event)"></app-card-render>
                 </section>
             </main>
 
@@ -34,7 +26,7 @@ import { CardRenderComponent } from 'src/app/shared/util/card/card-render.compon
                 <div class="detalhes">
                     <img src="assets/images/clean-code.png" alt="{{ livroSelecionado.titulo }}" />
                     <h3 class="livro-titulo">{{ livroSelecionado.titulo }}</h3>
-                    <p class="livro-autor">{{ livroSelecionado.autor.nome }}</p>
+                    <p class="livro-autor">{{ livroSelecionado?.autor?.nome }}</p>
 
                     <div class="avaliacoes">
                         <span class="stars">⭐⭐⭐⭐⭐</span>
