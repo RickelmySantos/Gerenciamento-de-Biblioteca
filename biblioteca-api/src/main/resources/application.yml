@@ -36,26 +36,26 @@ security:
     resourceserver:
       jwt:
         jwk-set-uri: http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs
-    client:
-      registration:
-        keycloak:
-          client-id: biblioteca-api
-          client-secret:
-          scope: openid, profile, email
-    provider:
-      keycloak:
-        issuer-uri: http://localhost:8280/auth/realms/REALM_LOCAL
-        resourceserver:
-          jwt:
-            jwk-set-uri: http://localhost:8280/realms/REALM_LOCAL
-keycloak:
-  auth-server-url: http://localhost:8280
-  realm: biblioteca
-  resource: biblioteca-ui
-  credentials:
-    ssl-required: external
-    bearer-only: true
-    use-resource-role-mappings: true
+#     client:
+#       registration:
+#         keycloak:
+#           client-id: biblioteca-ui
+#           client-secret:
+#           scope: openid, profile, email
+#     provider:
+#       keycloak:
+#         issuer-uri: http://localhost:8280/auth/realms/REALM_LOCAL
+#         resourceserver:
+#           jwt:
+#             jwk-set-uri: http://localhost:8280/realms/REALM_LOCAL
+# keycloak:
+#   auth-server-url: http://localhost:8280
+#   realm: biblioteca
+#   resource: biblioteca-ui
+#   credentials:
+#     ssl-required: external
+#     bearer-only: true
+#     use-resource-role-mappings: true
 
 #swagger + openapi
 springdoc:
@@ -77,8 +77,8 @@ openapi:
     url: https://rsdesenvolvimento.com.br
     email: rsdesenvolvimento@gmail.com
 
-# keycloak:
-#   resource: ${OAUTH_CLIENT_ID:biblioteca-ui}
+keycloak:
+  resource: ${OAUTH_CLIENT_ID:biblioteca-ui}
 
 # configurações de logging
 logging:

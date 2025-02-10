@@ -37,7 +37,7 @@ public class LivroApi {
     return ResponseEntity.status(HttpStatus.OK).body(this.livroService.listAll());
   }
 
-  @GetMapping("/livro/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<LivrosDto> buscarPorId(@PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(this.livroService.buscarPorId(id));
   }

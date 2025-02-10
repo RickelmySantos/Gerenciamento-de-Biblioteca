@@ -39,16 +39,17 @@ export class AuthService {
     async initAuth(): Promise<void> {
         try {
             await this.oauthService.loadDiscoveryDocument();
-
             await this.oauthService.tryLoginCodeFlow();
 
             if (this.hasValidToken()) {
                 console.log('Usuário já autenticado, carregando aplicação...');
                 return;
             }
+
             this.login();
         } catch (error) {
             console.error('Erro ao inicializar autenticação:', error);
+            this.oauthService.logOut();
             this.login();
         }
     }
@@ -73,7 +74,7 @@ export class AuthService {
         this.clearUserProfile();
     }
 
-    private hasValidToken(): boolean {
+    public hasValidToken(): boolean {
         return this.oauthService.hasValidAccessToken();
     }
 

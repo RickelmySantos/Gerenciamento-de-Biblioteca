@@ -2,7 +2,6 @@ package com.gerenciamento.biblioteca_api.modelos.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,5 +23,5 @@ public class AutorDto {
   private String nacionalidade;
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataNascimento;
-  private List<LivrosDto> livros;
+  // private List<LivrosDto> livros;
 }

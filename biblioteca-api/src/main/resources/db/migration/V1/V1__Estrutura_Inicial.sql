@@ -1,4 +1,3 @@
--- V1__Initial_Setup.sql
 
 -- Criação da tabela tb_autores
 CREATE TABLE tb_autores (
