@@ -1,6 +1,5 @@
 package com.gerenciamento.biblioteca_api.modelos.entidades;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,7 +49,7 @@ public class Livros {
 
   @ManyToOne
   @JoinColumn(name = "autor_id", nullable = false)
-  @JsonBackReference
+  // @JsonBackReference
   @NotNull
   private Autor autor;
 

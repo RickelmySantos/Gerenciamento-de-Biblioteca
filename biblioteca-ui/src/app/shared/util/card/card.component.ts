@@ -7,8 +7,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 @Component({
     selector: 'app-card',
     template: `
+        <!-- <img src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" alt="imagem do primeng" class="shadow-2 border-round-xl" /> -->
         <article class="card-content">
-            <!-- <img src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" alt="imagem do primeng" class="shadow-2 border-round-xl" /> -->
             <img src="assets/images/clean-code.png" alt="iamgem" class="shadow-2 border-round-xl" />
 
             <section class="info">

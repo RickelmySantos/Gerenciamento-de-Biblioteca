@@ -18,5 +18,4 @@ public class AutorFactory implements EntidadeFactory<Autor> {
   public Autor create(String nome, String sobrenome) {
     return Autor.builder().nome(nome).sobrenome(sobrenome).build();
   }
-
 }

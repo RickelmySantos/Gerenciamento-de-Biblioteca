@@ -23,5 +23,4 @@ public class AutorDto {
   private String nacionalidade;
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataNascimento;
-  // private List<LivrosDto> livros;
 }

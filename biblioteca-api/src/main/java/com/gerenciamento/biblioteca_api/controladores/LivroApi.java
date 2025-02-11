@@ -1,5 +1,6 @@
 package com.gerenciamento.biblioteca_api.controladores;
 
+import com.gerenciamento.biblioteca_api.modelos.dtos.LivroRequestDto;
 import com.gerenciamento.biblioteca_api.modelos.dtos.LivrosDto;
 import com.gerenciamento.biblioteca_api.servicos.LivrosService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,8 +28,12 @@ public class LivroApi {
 
   private final LivrosService livroService;
 
+  // @PostMapping
+  // public ResponseEntity<LivrosDto> cadastrar(@RequestBody @Valid LivrosDto livrosDto) {
+  // return ResponseEntity.status(HttpStatus.CREATED).body(this.livroService.cadastrar(livrosDto));
+  // }
   @PostMapping
-  public ResponseEntity<LivrosDto> cadastrar(@RequestBody @Valid LivrosDto livrosDto) {
+  public ResponseEntity<LivrosDto> cadastrar(@RequestBody @Valid LivroRequestDto livrosDto) {
     return ResponseEntity.status(HttpStatus.CREATED).body(this.livroService.cadastrar(livrosDto));
   }
 

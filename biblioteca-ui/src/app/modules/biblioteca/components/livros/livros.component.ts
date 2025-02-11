@@ -11,13 +11,13 @@ import { CardRenderComponent } from 'src/app/shared/util/card/card-render.compon
 @Component({
     selector: 'app-livros',
     template: `
-        <div class="flex w-full h-full">
+        <div class="flex w-full h-full ">
             <main class="fluid-content p-4 border-round-2xl flex flex-column gap-4">
-                <section class="lista-livros">
+                <section class="lista-livros  ">
                     <app-card-render [title]="'RECOMENDADOS'" [data]="livros$ | async" (selectLivro)="selecionarLivro($event)"></app-card-render>
                 </section>
 
-                <section class="lista-livros">
+                <section class="lista-livros ">
                     <app-card-render [title]="'CATEGORIAS'" [data]="livros$ | async" (selectLivro)="selecionarLivro($event)"></app-card-render>
                 </section>
             </main>
@@ -65,7 +65,7 @@ export class LivrosComponent extends BaseComponent {
     }
 
     override ngOnInit(): void {
-        this.livros$ = this.livroService.buscarLivros().pipe(map(livros => livros.slice(0, 5)));
+        this.livros$ = this.livroService.buscarLivros().pipe(map(livros => livros.slice(0, 7)));
     }
 
     selecionarLivro(livro: Livro): void {

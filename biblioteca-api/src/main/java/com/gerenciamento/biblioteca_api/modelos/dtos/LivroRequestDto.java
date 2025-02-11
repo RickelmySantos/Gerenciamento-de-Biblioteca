@@ -1,6 +1,5 @@
 package com.gerenciamento.biblioteca_api.modelos.dtos;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,15 +13,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class LivrosDto {
-  private Long id;
+public class LivroRequestDto {
+
   private String titulo;
   private String editora;
   private String idioma;
   private String genero;
-  private AutorDto autor;
-
-  private List<EmprestimoDto> emprestimo;
-
+  private Long autorId;
 
 }

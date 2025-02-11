@@ -4,7 +4,7 @@
 
 .card-content {
     position: relative;
-    width: 20rem; // 26rem -> 30rem
+    width: 19rem; // 26rem -> 30rem
     height: 25rem;
     border-radius: 1rem;
     overflow: hidden;
@@ -96,4 +96,27 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+// Card 2
+
+.card-content-2 {
+    display: flex;
+    flex-direction: column;
+    width: 20rem; // 26rem -> 30rem
+    height: 26rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: rgba(204, 203, 203, 0.383);
+    border-radius: 0.8rem;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.info-2 {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
 }
