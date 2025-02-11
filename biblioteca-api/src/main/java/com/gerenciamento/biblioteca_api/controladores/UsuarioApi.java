@@ -27,6 +27,8 @@ public class UsuarioApi {
 
   private final UsuarioService usuarioService;
 
+
+
   @PostMapping
   public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto) {
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -37,6 +39,7 @@ public class UsuarioApi {
   public ResponseEntity<List<UsuarioDto>> listAll() {
     return ResponseEntity.ok(this.usuarioService.listAll());
   }
+
 
   @GetMapping("/{id}")
   public ResponseEntity<UsuarioDto> buscarPorId(@PathVariable Long id) {
@@ -53,4 +56,6 @@ public class UsuarioApi {
     this.usuarioService.deletar(id);
     return ResponseEntity.noContent().build();
   }
+
+
 }
