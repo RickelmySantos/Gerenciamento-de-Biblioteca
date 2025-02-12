@@ -14,13 +14,13 @@ spring:
     schemas: ${FLYWAY_SCHEMAS:biblioteca}
     # cleanDisabled: true
     # create-schemas: true
-    url: ${DB_URL}
-    user: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
+    user: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     # locations: ${FLYWAY_LOCATIONS:classpath:db/migration,filesystem:/tmp/import/V0}
     locations: ${FLYWAY_LOCATIONS:filesystem:/tmp/import/V0}
   datasource:
-    url: ${DB_URL}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
   jpa:
@@ -68,6 +68,12 @@ openapi:
     name: RSDesenvolvimento
     url: https://rsdesenvolvimento.com.br
     email: rsdesenvolvimento@gmail.com
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 keycloak:
   resource: ${OAUTH_CLIENT_ID:biblioteca-ui}

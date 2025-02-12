@@ -1,33 +1,32 @@
 package com.gerenciamento.biblioteca_api.core.services;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.KeycloakBuilder;
-import org.keycloak.admin.client.resource.UsersResource;
-import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-// @Service
-// public class KeycloakUserService {
+@Service
+public class KeycloakUserService {
 
 
-// private final Keycloak keycloak;
+  private final String KEYCLOAK_USERS_URL =
+      "http://localhost:8280/auth/admin/realms/REALM_LOCAL/users";
 
-// @Value("${keycloak.realm}")
-// private String realm;
 
-// public KeycloakUserService(@Value("${keycloak.auth-server-url}") String authServerUrl,
-// @Value("${keycloak.realm}") String realm, @Value("${keycloak.client-id}") String clientId,
-// @Value("${keycloak.client-secret}") String clientSecret) {
-// this.keycloak = KeycloakBuilder.builder().serverUrl(authServerUrl).realm(realm)
-// .clientId(clientId).clientSecret(clientSecret).build();
-// }
+  public String buscarUsuariosKeycloak(String accessToken) {
+    RestTemplate rt = new RestTemplate();
 
-// public List<String> buscarUsuariosKeycloack() {
-// UsersResource usersResource = this.keycloak.realm(this.realm).users();
-// List<UserRepresentation> users = usersResource.list();
-// return users.stream().map(UserRepresentation::getUsername).collect(Collectors.toList());
-// }
-// }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("Authorization", "Bearer " + accessToken);
+    headers.setContentType(MediaType.APPLICATION_JSON);
+
+    HttpEntity<String> entity = new HttpEntity<>(headers);
+    ResponseEntity<String> response =
+        rt.exchange(this.KEYCLOAK_USERS_URL, HttpMethod.GET, entity, String.class);
+
+    return response.getBody();
+  }
+}

@@ -58,7 +58,8 @@ services:
       context: biblioteca-api
       dockerfile: Dockerfile.backend
     container_name: biblioteca-api-local
-    restart: unless-stopped
+    profiles:
+      - "app"
     environment:
       AMBIENTE: local
       BASE_URL: http://localhost:8080
@@ -76,7 +77,7 @@ services:
       JPA_SHOW_SQL: true
       FLYWAY_ENABLED: true
       FLYWAY_CREATE_SCHEMA: true
-      FLYWAY_DEFAULT_SCHEMA: biblioteca_adm
+      FLYWAY_DEFAULT_SCHEMA: biblioteca
       FLYWAY_SCHEMAS: biblioteca
       FLYWAY_LOCATIONS: filesystem:/tmp/import/V0
 
