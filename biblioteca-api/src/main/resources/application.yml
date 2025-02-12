@@ -17,9 +17,10 @@ spring:
     url: ${DB_URL}
     user: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-    locations: ${FLYWAY_LOCATIONS:classpath:db/migration,filesystem:/tmp/import, filesystem:/tmp/import/V0, filesystem:/tmp/import/V1}
+    # locations: ${FLYWAY_LOCATIONS:classpath:db/migration,filesystem:/tmp/import/V0}
+    locations: ${FLYWAY_LOCATIONS:filesystem:/tmp/import/V0}
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
+    url: ${DB_URL}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
   jpa:
@@ -32,11 +33,11 @@ spring:
       hibernate:
         format_sql: ${JPA_SHOW_SQL:true}
       jakarta.persistence.schema-generation.scripts:
-        action: drop-and-create
-        create-source: metadata
-        create-target: target/create.sql
-        drop-source: metadata
-        drop-target: target/drop.sql
+        action: none
+        # create-source: metadata
+        # create-target: target/create.sql
+        # drop-source: metadata
+        # drop-target: target/drop.sql
   sql:
     init:
       mode: never
