@@ -3,15 +3,13 @@ server:
   port: 8080
   servlet:
     context-path: /api
-
-# Configuração do H2
 spring:
   flyway:
     enabled: ${FLYWAY_ENABLED:true}
     baseline-on-migrate: true
     baseline-version: 0
     baseline-description: Biblioteca Baseline
-    create-schemas: ${FLYWAY_CREATE_SCHEMAS:true}
+    create-schemas: ${FLYWAY_CREATE_SCHEMA:true}
     default-schema: ${FLYWAY_DEFAULT_SCHEMA:biblioteca_adm}
     schemas: ${FLYWAY_SCHEMAS:biblioteca}
     # cleanDisabled: true
@@ -19,11 +17,11 @@ spring:
     url: ${DB_URL}
     user: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-    locations: ${FLYWAY_LOCATIONS:classpath:db/migration}
+    locations: ${FLYWAY_LOCATIONS:classpath:db/migration,filesystem:/tmp/import, filesystem:/tmp/import/V0, filesystem:/tmp/import/V1}
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
   jpa:
     database-platform: ${JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
     hibernate:
@@ -34,11 +32,11 @@ spring:
       hibernate:
         format_sql: ${JPA_SHOW_SQL:true}
       jakarta.persistence.schema-generation.scripts:
-        action: none
-        # create-source: metadata
-        # create-target: target/create.sql
-        # drop-source: metadata
-        # drop-target: target/drop.sql
+        action: drop-and-create
+        create-source: metadata
+        create-target: target/create.sql
+        drop-source: metadata
+        drop-target: target/drop.sql
   sql:
     init:
       mode: never
@@ -49,26 +47,6 @@ security:
     resourceserver:
       jwt:
         jwk-set-uri: ${OAUTH_RESOURCESERVER_JWT:http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs}
-#     client:
-#       registration:
-#         keycloak:
-#           client-id: biblioteca-ui
-#           client-secret:
-#           scope: openid, profile, email
-#     provider:
-#       keycloak:
-#         issuer-uri: http://localhost:8280/auth/realms/REALM_LOCAL
-#         resourceserver:
-#           jwt:
-#             jwk-set-uri: http://localhost:8280/realms/REALM_LOCAL
-# keycloak:
-#   auth-server-url: http://localhost:8280
-#   realm: biblioteca
-#   resource: biblioteca-ui
-#   credentials:
-#     ssl-required: external
-#     bearer-only: true
-#     use-resource-role-mappings: true
 
 #swagger + openapi
 springdoc:

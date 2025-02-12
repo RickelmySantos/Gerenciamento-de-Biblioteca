@@ -85,7 +85,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./infra/biblioteca/api/db:/temp/import
+      - ./infra/biblioteca/api/db:/tmp/import
     depends_on:
       # keycloak-local:
       #   condition: service_healthy
