@@ -1,6 +1,8 @@
+CREATE SCHEMA IF NOT EXISTS biblioteca;
 
--- Criação da tabela tb_autores
-CREATE TABLE tb_autores (
+SET search_path TO biblioteca;
+
+CREATE TABLE IF NOT EXISTS tb_autores (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL CHECK (char_length(nome) >= 5),
     sobrenome VARCHAR(100) NOT NULL CHECK (char_length(sobrenome) >= 5),
@@ -8,8 +10,7 @@ CREATE TABLE tb_autores (
     data_nascimento DATE NOT NULL
 );
 
--- Criação da tabela tb_livros
-CREATE TABLE tb_livros (
+CREATE TABLE IF NOT EXISTS tb_livros (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL CHECK (char_length(titulo) >= 5),
     editora VARCHAR(100) NOT NULL CHECK (char_length(editora) >= 5),
@@ -19,8 +20,7 @@ CREATE TABLE tb_livros (
     CONSTRAINT fk_livros_autor FOREIGN KEY (autor_id) REFERENCES tb_autores (id) ON DELETE CASCADE
 );
 
--- Criação da tabela tb_usuario
-CREATE TABLE tb_usuario (
+CREATE TABLE IF NOT EXISTS tb_usuario (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL CHECK (char_length(nome) >= 5),
     email VARCHAR(255),
@@ -28,8 +28,7 @@ CREATE TABLE tb_usuario (
     tipo_usuario VARCHAR(50) NOT NULL CHECK (tipo_usuario IN ('ADMINISTRADOR', 'GESTOR', 'USUARIO'))
 );
 
--- Criação da tabela tb_emprestimo
-CREATE TABLE tb_emprestimo (
+CREATE TABLE IF NOT EXISTS tb_emprestimo (
     id SERIAL PRIMARY KEY,
     data_emprestimo DATE NOT NULL,
     data_devolucao DATE NOT NULL,
