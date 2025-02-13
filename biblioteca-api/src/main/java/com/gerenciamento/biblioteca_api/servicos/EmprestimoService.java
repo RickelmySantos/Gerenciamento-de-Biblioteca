@@ -1,6 +1,7 @@
 package com.gerenciamento.biblioteca_api.servicos;
 
 import com.gerenciamento.biblioteca_api.modelos.dtos.EmprestimoDto;
+import com.gerenciamento.biblioteca_api.modelos.dtos.EmprestimoRequestDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Emprestimo;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Livros;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Usuario;
@@ -8,6 +9,7 @@ import com.gerenciamento.biblioteca_api.modelos.mappers.EmprestimoMapper;
 import com.gerenciamento.biblioteca_api.repositorios.EmprestimoRepository;
 import com.gerenciamento.biblioteca_api.repositorios.LivrosRepository;
 import com.gerenciamento.biblioteca_api.repositorios.UsuarioRepository;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,32 @@ public class EmprestimoService {
     return this.mapper.paraDto(save);
 
   }
+
+
+  public EmprestimoDto criarEmprestimo(EmprestimoRequestDto requestDto) {
+    Livros livro = this.livroRepository.findById(requestDto.getLivroId())
+        .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
+    Usuario usuario = this.usuarioRepository.findById(requestDto.getUsuarioId())
+        .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
+
+    boolean emprestimoAtivo =
+        this.repository.existsByLivrosAndDataDevolucaoAfter(livro, LocalDate.now());
+
+    if (emprestimoAtivo) {
+      throw new IllegalArgumentException("Livro indisponível para empréstimo no momento.");
+    }
+
+    Emprestimo emprestimo = new Emprestimo();
+    emprestimo.setLivros(livro);
+    emprestimo.setUsuario(usuario);
+    emprestimo.setDataEmprestimo(LocalDate.now());
+    emprestimo.setDataDevolucao(requestDto.getDataDevolucao());
+
+    emprestimo = this.repository.save(emprestimo);
+
+    return new EmprestimoDto(emprestimo);
+  }
+
 
   public EmprestimoDto atualizar(Long id, EmprestimoDto emprestimoDto) {
     Emprestimo emprestimo = this.repository.findById(id)

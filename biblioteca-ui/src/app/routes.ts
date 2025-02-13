@@ -3,8 +3,11 @@ import { Route } from '@angular/router';
 export const ROUTES: Route[] = [
     {
         path: '',
-        loadComponent: () => import('./modules/home/home.component').then(m => m.HomeComponent),
-        children: [{ path: '', loadChildren: () => import('./modules/home/home.routes') }],
+        loadComponent: () => import('./layout/layout.component').then(m => m.LayoutComponent),
+        children: [
+            { path: '', loadChildren: () => import('./modules/home/home.routes') },
+            { path: 'biblioteca', loadChildren: () => import('./modules/biblioteca/biblioteca.routes') },
+        ],
     },
     {
         path: 'pages',

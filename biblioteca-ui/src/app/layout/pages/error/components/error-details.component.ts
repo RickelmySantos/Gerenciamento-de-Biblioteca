@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { BaseComponent } from 'src/app/core/components/base.component';
+import { BaseComponent } from 'src/app/core/util/base.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({

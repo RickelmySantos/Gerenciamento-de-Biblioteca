@@ -1,6 +1,7 @@
 package com.gerenciamento.biblioteca_api.controladores;
 
 import com.gerenciamento.biblioteca_api.modelos.dtos.EmprestimoDto;
+import com.gerenciamento.biblioteca_api.modelos.dtos.EmprestimoRequestDto;
 import com.gerenciamento.biblioteca_api.servicos.EmprestimoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -27,11 +28,20 @@ public class EmprestimoApi {
 
   private final EmprestimoService emprestimoService;
 
+  // @PostMapping
+  // public ResponseEntity<EmprestimoDto> cadastrar(@RequestBody @Valid EmprestimoDto emprestimoDto)
+  // {
+  // return ResponseEntity.status(HttpStatus.CREATED)
+  // .body(this.emprestimoService.cadastrar(emprestimoDto));
+  // }
+
   @PostMapping
-  public ResponseEntity<EmprestimoDto> cadastrar(@RequestBody @Valid EmprestimoDto emprestimoDto) {
+  public ResponseEntity<EmprestimoDto> criarEmprestimo(
+      @RequestBody @Valid EmprestimoRequestDto requestDto) {
     return ResponseEntity.status(HttpStatus.CREATED)
-        .body(this.emprestimoService.cadastrar(emprestimoDto));
+        .body(this.emprestimoService.criarEmprestimo(requestDto));
   }
+
 
   @GetMapping
   public ResponseEntity<List<EmprestimoDto>> listAll() {

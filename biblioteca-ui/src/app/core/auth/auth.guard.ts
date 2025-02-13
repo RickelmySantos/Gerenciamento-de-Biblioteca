@@ -1,20 +1,20 @@
-import { inject, Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
+// export const authGuard: CanMatchFn = async (): Promise<boolean | UrlTree> => {
+//     if (!environment.securityEnabled) {
+//         console.warn('[AuthGuard] Segurança desabilitada');
+//         return firstValueFrom(of(true));
+//     }
 
-@Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
-    protected readonly authService: KeycloakService = inject(KeycloakService);
-    protected readonly router: Router = inject(Router);
+//     console.debug('[AuthGuard] Segurança habilitada');
+//     const authService = inject(AuthService);
 
-    async canActivate(): Promise<boolean> {
-        const isLoggedIn = await this.authService.isLoggedIn();
-        if (!isLoggedIn) {
-            console.debug('[AuthGuard] Usuário não autenticado!');
-            await this.authService.login();
-            return false;
-        }
-        console.debug('[AuthGuard] Usuário autenticado!');
-        return true;
-    }
-}
+//     let userAuthenticated: boolean = await authService.userIsAuthenticated();
+
+//     if (!userAuthenticated) {
+//         console.warn('[AuthGuard] O usuário não está autenticado');
+//         authService.login();
+//     } else {
+//         console.debug('[AuthGuard] O usuário está autenticado', authService.user);
+//     }
+
+//     return firstValueFrom(of(userAuthenticated));
+// };

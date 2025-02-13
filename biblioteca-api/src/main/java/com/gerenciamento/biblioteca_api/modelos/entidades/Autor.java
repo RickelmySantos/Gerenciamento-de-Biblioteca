@@ -1,7 +1,7 @@
 package com.gerenciamento.biblioteca_api.modelos.entidades;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,6 +48,7 @@ public class Autor {
   private LocalDate dataNascimento;
 
   @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
+  // @JsonManagedReference
+  @JsonIgnore
   private List<Livros> livros;
 }

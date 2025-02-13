@@ -181,6 +181,19 @@
 		<!-- -->
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProfile>local</activatedProfile>
+			</properties>
+		</profile>
+
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -198,6 +211,9 @@
 							<version>${org.mapstruct.version}</version>
 						</path>
 					</annotationProcessorPaths>
+					<profiles>
+						<profile>${spring.profiles.active}</profile>
+					</profiles>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -213,6 +229,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 </project>

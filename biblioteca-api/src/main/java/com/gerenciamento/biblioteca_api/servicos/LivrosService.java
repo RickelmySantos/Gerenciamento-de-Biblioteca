@@ -1,5 +1,6 @@
 package com.gerenciamento.biblioteca_api.servicos;
 
+import com.gerenciamento.biblioteca_api.modelos.dtos.LivroRequestDto;
 import com.gerenciamento.biblioteca_api.modelos.dtos.LivrosDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Autor;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Livros;
@@ -25,9 +26,27 @@ public class LivrosService {
     this.autorRepository = autorRepository;
   }
 
-  public LivrosDto cadastrar(LivrosDto livroDto) {
+  // public LivrosDto cadastrar(LivrosDto livroDto) {
+  // Assert.notNull(livroDto, "Livro não pode ser nulo");
+  // Assert.isNull(livroDto.getId(), "Id deve ser nulo");
+  // Assert.notNull(livroDto.getAutor().getId(), "AutorId não pode ser nulo");
+
+  // Autor autor = this.autorRepository.findById(livroDto.getAutor().getId())
+  // .orElseThrow(() -> new IllegalArgumentException("Autor não encontrado"));
+
+  // Livros livro = this.mapper.paraEntidade(livroDto);
+
+  // livro.setAutor(autor);
+
+  // Livros livroSalvo = this.repository.save(livro);
+
+  // return this.mapper.paraDto(livroSalvo);
+
+  // }
+
+
+  public LivrosDto cadastrar(LivroRequestDto livroDto) {
     Assert.notNull(livroDto, "Livro não pode ser nulo");
-    Assert.isNull(livroDto.getId(), "Id deve ser nulo");
     Assert.notNull(livroDto.getAutorId(), "AutorId não pode ser nulo");
 
     Autor autor = this.autorRepository.findById(livroDto.getAutorId())
@@ -59,7 +78,7 @@ public class LivrosService {
 
   public LivrosDto buscarPorId(Long id) {
     Assert.notNull(id, "Id não pode ser nulo");
-    Livros livros = this.repository.findById(id)
+    Livros livros = this.repository.findByWithAutor(id)
         .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
 
     return this.mapper.paraDto(livros);

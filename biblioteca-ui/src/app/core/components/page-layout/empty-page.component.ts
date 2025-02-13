@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { FooterComponent } from 'src/app/core/layout/components/footer/footer.component';
+import { FooterComponent } from 'src/app/layout/components/footer/footer.component';
 
 @Component({
     selector: 'empty-page',

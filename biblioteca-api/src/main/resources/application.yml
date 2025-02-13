@@ -3,55 +3,51 @@ server:
   port: 8080
   servlet:
     context-path: /api
-
-# Configuração do H2
 spring:
   flyway:
-    enabled: false
-    cleanDisabled: true
-    create-schemas: true
-    url: jdbc:postgresql://localhost:5432/localdb
-    user: postgres
-    password: postgres
-    locations: classpath:db/migration
+    enabled: ${FLYWAY_ENABLED:true}
+    baseline-on-migrate: true
+    baseline-version: 0
+    baseline-description: Biblioteca Baseline
+    create-schemas: ${FLYWAY_CREATE_SCHEMA:true}
+    default-schema: ${FLYWAY_DEFAULT_SCHEMA:biblioteca_adm}
+    schemas: ${FLYWAY_SCHEMAS:biblioteca}
+    # cleanDisabled: true
+    # create-schemas: true
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
+    user: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    # locations: ${FLYWAY_LOCATIONS:classpath:db/migration,filesystem:/tmp/import/V0}
+    locations: ${FLYWAY_LOCATIONS:filesystem:/tmp/import/V0}
   datasource:
-    url: jdbc:postgresql://localhost:5432/localdb
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
   jpa:
-    show-sql: true
+    database-platform: ${JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: ${JPA_SHOW_SQL:false}
     properties:
       hibernate:
-        format_sql: true
+        format_sql: ${JPA_SHOW_SQL:true}
       jakarta.persistence.schema-generation.scripts:
-        action: drop-and-create
-        create-source: metadata
-        create-target: target/create.sql
-        drop-source: metadata
-        drop-target: target/drop.sql
+        action: none
+        # create-source: metadata
+        # create-target: target/create.sql
+        # drop-source: metadata
+        # drop-target: target/drop.sql
+  sql:
+    init:
+      mode: never
   # Configuração do Keycloak + security
 security:
+  enabled: false
   oauth2:
-    client:
-      registration:
-        keycloak:
-          client-id: biblioteca-api
-          client-secret:
-          scope: openid, profile, email
-    provider:
-      keycloak:
-        issuer-uri: http://localhost:8280/auth/realms/biblioteca
-        resourceserver:
-          jwt:
-            jwk-set-uri: http://localhost:8280/realms/biblioteca
-keycloak:
-  auth-server-url: http://localhost:8280
-  realm: biblioteca
-  resource: biblioteca-api
-  credentials:
-    ssl-required: external
-    bearer-only: true
-    use-resource-role-mappings: true
+    resourceserver:
+      jwt:
+        jwk-set-uri: ${OAUTH_RESOURCESERVER_JWT:http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs}
 
 #swagger + openapi
 springdoc:
@@ -72,13 +68,19 @@ openapi:
     name: RSDesenvolvimento
     url: https://rsdesenvolvimento.com.br
     email: rsdesenvolvimento@gmail.com
-  license:
-    name: Apache License 2.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+keycloak:
+  resource: ${OAUTH_CLIENT_ID:biblioteca-ui}
 
 # configurações de logging
 logging:
   level:
-    com.amazonaws: error
     org:
       flywaydb: info
       hibernate: info

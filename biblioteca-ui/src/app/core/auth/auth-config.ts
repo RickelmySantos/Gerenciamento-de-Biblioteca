@@ -15,5 +15,5 @@ export const authConfig: AuthConfig = {
     preserveRequestedRoute: true,
     showDebugInformation: true,
 
-    silentRefreshTimeout: 5000,
+    // silentRefreshTimeout: 5000,
 };
