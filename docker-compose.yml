@@ -87,8 +87,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      # - ./infra/biblioteca/api/db:/tmp/import
-      - ./infra/biblioteca/api/db/migration/V0:/tmp/import/V0
+      - ./infra/biblioteca/api/db/migration:/tmp/import
+      # - ./infra/biblioteca/api/db/migration/V0:/tmp/import/V0
     depends_on:
       postgres-local:
         condition: service_healthy

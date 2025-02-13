@@ -1,7 +1,6 @@
 package com.gerenciamento.biblioteca_api.modelos.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gerenciamento.biblioteca_api.modelos.entidades.Emprestimo;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,16 +22,11 @@ public class EmprestimoDto {
   private LocalDate dataEmprestimo;
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataDevolucao;
-  private Long usuarioId;
-  private Long livroId;
+  // private Long usuarioId;
+  // private Long livroId;
 
+  private UsuarioDto usuarioDto;
 
-  public EmprestimoDto(Emprestimo emprestimo) {
-    this.id = emprestimo.getId();
-    this.dataEmprestimo = emprestimo.getDataEmprestimo();
-    this.dataDevolucao = emprestimo.getDataDevolucao();
-    this.usuarioId = emprestimo.getUsuario().getId();
-    this.livroId = emprestimo.getLivros().getId();
-  }
+  private LivrosDto livrosDto;
 
 }

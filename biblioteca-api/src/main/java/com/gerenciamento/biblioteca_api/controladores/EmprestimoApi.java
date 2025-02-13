@@ -28,13 +28,6 @@ public class EmprestimoApi {
 
   private final EmprestimoService emprestimoService;
 
-  // @PostMapping
-  // public ResponseEntity<EmprestimoDto> cadastrar(@RequestBody @Valid EmprestimoDto emprestimoDto)
-  // {
-  // return ResponseEntity.status(HttpStatus.CREATED)
-  // .body(this.emprestimoService.cadastrar(emprestimoDto));
-  // }
-
   @PostMapping
   public ResponseEntity<EmprestimoDto> criarEmprestimo(
       @RequestBody @Valid EmprestimoRequestDto requestDto) {

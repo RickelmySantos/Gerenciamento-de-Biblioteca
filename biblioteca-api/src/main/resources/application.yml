@@ -18,7 +18,7 @@ spring:
     user: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
     # locations: ${FLYWAY_LOCATIONS:classpath:db/migration,filesystem:/tmp/import/V0}
-    locations: ${FLYWAY_LOCATIONS:filesystem:/tmp/import/V0}
+    locations: ${FLYWAY_LOCATIONS:filesystem:/tmp/import/}
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
     username: ${DB_USERNAME:postgres}
@@ -31,6 +31,7 @@ spring:
     show-sql: ${JPA_SHOW_SQL:false}
     properties:
       hibernate:
+        default_schema: biblioteca
         format_sql: ${JPA_SHOW_SQL:true}
       jakarta.persistence.schema-generation.scripts:
         action: none
@@ -43,11 +44,12 @@ spring:
       mode: never
   # Configuração do Keycloak + security
 security:
-  enabled: false
+  enabled: true
   oauth2:
     resourceserver:
       jwt:
-        jwk-set-uri: ${OAUTH_RESOURCESERVER_JWT:http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs}
+        # jwk-set-uri: ${OAUTH_RESOURCESERVER_JWT:http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs}
+        issuer-uri: http://localhost:8280/auth/realms/REALM_LOCAL
 
 #swagger + openapi
 springdoc:

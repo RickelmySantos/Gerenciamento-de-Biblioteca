@@ -1,5 +1,6 @@
 package com.gerenciamento.biblioteca_api.servicos;
 
+import com.gerenciamento.biblioteca_api.core.services.UserAutenticadoService;
 import com.gerenciamento.biblioteca_api.modelos.dtos.EmprestimoDto;
 import com.gerenciamento.biblioteca_api.modelos.dtos.EmprestimoRequestDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Emprestimo;
@@ -9,6 +10,7 @@ import com.gerenciamento.biblioteca_api.modelos.mappers.EmprestimoMapper;
 import com.gerenciamento.biblioteca_api.repositorios.EmprestimoRepository;
 import com.gerenciamento.biblioteca_api.repositorios.LivrosRepository;
 import com.gerenciamento.biblioteca_api.repositorios.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -20,40 +22,29 @@ public class EmprestimoService {
   private EmprestimoMapper mapper;
   private UsuarioRepository usuarioRepository;
   private LivrosRepository livroRepository;
+  private UserAutenticadoService userAutenticadoService;
 
   public EmprestimoService(EmprestimoRepository repository, EmprestimoMapper mapper,
-      UsuarioRepository usuarioRepository, LivrosRepository livroRepository) {
+      UsuarioRepository usuarioRepository, LivrosRepository livroRepository,
+      UserAutenticadoService userAutenticadoService) {
     this.repository = repository;
     this.mapper = mapper;
     this.usuarioRepository = usuarioRepository;
     this.livroRepository = livroRepository;
-  }
-
-  public EmprestimoDto cadastrar(EmprestimoDto emprestimoDto) {
-
-    Usuario usuario = this.usuarioRepository.findById(emprestimoDto.getUsuarioId())
-        .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
-    Livros livros = this.livroRepository.findById(emprestimoDto.getLivroId())
-        .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
-
-    Emprestimo emprestimo = new Emprestimo();
-    emprestimo.setUsuario(usuario);
-    emprestimo.setLivros(livros);
-    emprestimo.setDataEmprestimo(emprestimoDto.getDataEmprestimo());
-    emprestimo.setDataDevolucao(emprestimoDto.getDataDevolucao());
-
-    Emprestimo save = this.repository.save(emprestimo);
-
-    return this.mapper.paraDto(save);
-
+    this.userAutenticadoService = userAutenticadoService;
   }
 
 
+  @Transactional
   public EmprestimoDto criarEmprestimo(EmprestimoRequestDto requestDto) {
+
+    String userId = this.userAutenticadoService.getUserId();
+
+    Usuario usuario = this.usuarioRepository.findById(userId)
+        .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
+
     Livros livro = this.livroRepository.findById(requestDto.getLivroId())
         .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
-    Usuario usuario = this.usuarioRepository.findById(requestDto.getUsuarioId())
-        .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
 
     boolean emprestimoAtivo =
         this.repository.existsByLivrosAndDataDevolucaoAfter(livro, LocalDate.now());
@@ -62,26 +53,18 @@ public class EmprestimoService {
       throw new IllegalArgumentException("Livro indisponível para empréstimo no momento.");
     }
 
-    Emprestimo emprestimo = new Emprestimo();
-    emprestimo.setLivros(livro);
-    emprestimo.setUsuario(usuario);
-    emprestimo.setDataEmprestimo(LocalDate.now());
-    emprestimo.setDataDevolucao(requestDto.getDataDevolucao());
+    Emprestimo emprestimo = Emprestimo.builder().usuario(usuario).livros(livro)
+        .dataEmprestimo(LocalDate.now()).dataDevolucao(LocalDate.now().plusDays(7)).build();
 
-    emprestimo = this.repository.save(emprestimo);
-
-    return new EmprestimoDto(emprestimo);
+    return this.mapper.paraDto(this.repository.save(emprestimo));
   }
 
-
+  @Transactional
   public EmprestimoDto atualizar(Long id, EmprestimoDto emprestimoDto) {
     Emprestimo emprestimo = this.repository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Emprestimo não encontrado !"));
 
-    Usuario usuario = this.usuarioRepository.findById(emprestimoDto.getUsuarioId())
-        .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
-
-    Livros livros = this.livroRepository.findById(emprestimoDto.getLivroId())
+    Livros livros = this.livroRepository.findById(emprestimoDto.getLivrosDto().getId())
         .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
 
     if (emprestimoDto.getDataDevolucao().isBefore(emprestimoDto.getDataEmprestimo())) {
@@ -89,15 +72,14 @@ public class EmprestimoService {
           "Data de devolução não pode ser menor que a data de emprestimo");
     }
 
-    emprestimo.setUsuario(usuario);
     emprestimo.setLivros(livros);
     emprestimo.setDataEmprestimo(emprestimoDto.getDataEmprestimo());
     emprestimo.setDataDevolucao(emprestimoDto.getDataDevolucao());
 
-    Emprestimo save = this.repository.save(emprestimo);
-
-    return this.mapper.paraDto(save);
+    return this.mapper.paraDto(this.repository.save(emprestimo));
   }
+
+
 
   public EmprestimoDto buscarPorId(Long id) {
     Emprestimo emprestimo = this.repository.findById(id)

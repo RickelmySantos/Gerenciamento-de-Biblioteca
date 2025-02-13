@@ -31,15 +31,19 @@ public class Emprestimo {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @NotNull
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataEmprestimo;
+
   @NotNull
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataDevolucao;
+
   @ManyToOne
   @JoinColumn(name = "livros_id", nullable = false)
   private Livros livros;
+
   @ManyToOne
   @JoinColumn(name = "usuario_id", nullable = false)
   private Usuario usuario;

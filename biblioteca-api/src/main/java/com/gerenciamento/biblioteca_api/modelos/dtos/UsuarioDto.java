@@ -19,12 +19,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class UsuarioDto {
 
-  private Long id;
+  private String id;
+
   @NotBlank
   @Size(min = 5, max = 100)
   private String nome;
+
   private String email;
-  private String senha;
 
   private TipoUsuario tipoUsuario;
 

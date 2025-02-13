@@ -2,11 +2,10 @@ package com.gerenciamento.biblioteca_api.modelos.entidades;
 
 import com.gerenciamento.biblioteca_api.modelos.enums.TipoUsuario;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -32,15 +31,19 @@ import lombok.ToString;
 @Table(name = "tb_usuario")
 public class Usuario {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  // @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(length = 255)
+  private String id; // Alteado para String devido ao retorno do keycloak ser um UUID
+
   @NotBlank
   @Size(min = 5, max = 100)
   private String nome;
+
   private String email;
-  private String senha;
+
   @Enumerated(EnumType.STRING)
   private TipoUsuario tipoUsuario;
+
   @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Emprestimo> emprestimo;
 }

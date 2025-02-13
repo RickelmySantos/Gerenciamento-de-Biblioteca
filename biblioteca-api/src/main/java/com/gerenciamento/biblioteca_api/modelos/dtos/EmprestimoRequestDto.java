@@ -17,8 +17,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class EmprestimoRequestDto {
 
-  private Long usuarioId;
   private Long livroId;
+
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
   private LocalDate dataDevolucao;
 

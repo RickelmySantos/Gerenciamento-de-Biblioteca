@@ -10,11 +10,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface LivrosMapper extends BaseMapper<LivrosDto, Livros> {
 
-  // @Override
-  // @Mapping(source = "autor.id", target = "autor.id")
-  // Livros paraEntidade(LivrosDto dto);
-
-
 
   @Mapping(source = "autorId", target = "autor.id")
   Livros paraEntidade(LivroRequestDto dto);

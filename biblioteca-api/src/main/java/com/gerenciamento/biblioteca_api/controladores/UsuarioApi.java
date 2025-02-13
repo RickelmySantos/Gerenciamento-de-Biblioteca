@@ -3,18 +3,13 @@ package com.gerenciamento.biblioteca_api.controladores;
 import com.gerenciamento.biblioteca_api.modelos.dtos.UsuarioDto;
 import com.gerenciamento.biblioteca_api.servicos.UsuarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,33 +24,22 @@ public class UsuarioApi {
 
 
 
-  @PostMapping
-  public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioDto usuarioDto) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(this.usuarioService.cadastrar(usuarioDto));
-  }
+  @GetMapping("/me")
+  public ResponseEntity<UsuarioDto> buscar(@RequestHeader("Authorization") String token) {
+    String accessToken = token.replace("Bearer ", "").trim();
 
-  @GetMapping()
-  public ResponseEntity<List<UsuarioDto>> listAll() {
-    return ResponseEntity.ok(this.usuarioService.listAll());
-  }
+    UsuarioDto usuarioDto = this.usuarioService.buscarUsuarioAutenticado(accessToken);
 
+    return ResponseEntity.ok(usuarioDto);
+  }
 
   @GetMapping("/{id}")
-  public ResponseEntity<UsuarioDto> buscarPorId(@PathVariable Long id) {
+  public ResponseEntity<UsuarioDto> buscarPorId(@PathVariable String id) {
     return ResponseEntity.ok(this.usuarioService.buscarPorId(id));
   }
 
-  @PutMapping
-  public ResponseEntity<UsuarioDto> atualizar(@RequestBody @Valid UsuarioDto usuarioDto) {
-    return ResponseEntity.ok(this.usuarioService.atualizar(usuarioDto));
+  @GetMapping
+  public ResponseEntity<List<UsuarioDto>> listAll() {
+    return ResponseEntity.ok(this.usuarioService.listarTodos());
   }
-
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deletar(@PathVariable Long id) {
-    this.usuarioService.deletar(id);
-    return ResponseEntity.noContent().build();
-  }
-
-
 }
