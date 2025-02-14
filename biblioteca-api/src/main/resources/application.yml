@@ -12,8 +12,6 @@ spring:
     create-schemas: ${FLYWAY_CREATE_SCHEMA:true}
     default-schema: ${FLYWAY_DEFAULT_SCHEMA:biblioteca_adm}
     schemas: ${FLYWAY_SCHEMAS:biblioteca}
-    # cleanDisabled: true
-    # create-schemas: true
     url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
     user: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
@@ -35,10 +33,6 @@ spring:
         format_sql: ${JPA_SHOW_SQL:true}
       jakarta.persistence.schema-generation.scripts:
         action: none
-        # create-source: metadata
-        # create-target: target/create.sql
-        # drop-source: metadata
-        # drop-target: target/drop.sql
   sql:
     init:
       mode: never
@@ -49,7 +43,6 @@ security:
     resourceserver:
       jwt:
         # jwk-set-uri: ${OAUTH_RESOURCESERVER_JWT:http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs}
-        # issuer-uri: http://localhost:8280/auth/realms/REALM_LOCAL
         jwk-set-uri: http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs
 
 #swagger + openapi

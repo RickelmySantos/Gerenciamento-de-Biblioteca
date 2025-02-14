@@ -26,18 +26,13 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @RequiredArgsConstructor
 @AutoConfiguration
 @EnableWebSecurity
-// @EnableMethodSecurity(securedEnabled = true)
 @Slf4j
 public class WebSecurityConfig {
   @Value("${security.oauth2.resourceserver.jwt.jwk-set-uri}")
   private String jwkSetUri;
 
-  // @Value("${security.oauth2.resourceserver.jwt.issuer-uri}")
-  // private String jwkSetUri;
-
   @Value("${security.enabled:false}")
   protected Boolean securityEnabled;
-
 
   @PostConstruct
   public void init() {
@@ -73,9 +68,6 @@ public class WebSecurityConfig {
             // APP
             .anyRequest().authenticated();
       });
-
-      // http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()));
-
       http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(this.jwtDecoder())
           .jwtAuthenticationConverter(this.jwtAuthenticationConverter())));
       http.sessionManagement(

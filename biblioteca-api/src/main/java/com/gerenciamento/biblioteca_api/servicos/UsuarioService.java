@@ -1,7 +1,7 @@
 package com.gerenciamento.biblioteca_api.servicos;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.gerenciamento.biblioteca_api.core.services.UserAutenticadoService;
+import com.gerenciamento.biblioteca_api.core.services.KeycloakService;
 import com.gerenciamento.biblioteca_api.modelos.dtos.UsuarioDto;
 import com.gerenciamento.biblioteca_api.modelos.entidades.Usuario;
 import com.gerenciamento.biblioteca_api.modelos.mappers.UsuarioMapper;
@@ -16,13 +16,14 @@ public class UsuarioService {
 
   private final UsuarioMapper mapper;
 
-  private final UserAutenticadoService userAutenticadoService;
+  private final KeycloakService keycloakService;
 
   public UsuarioService(UsuarioRepository repository, UsuarioMapper mapper,
-      UserAutenticadoService userAutenticadoService) {
+      KeycloakService keycloakService) {
     this.repository = repository;
     this.mapper = mapper;
-    this.userAutenticadoService = userAutenticadoService;
+    this.keycloakService = keycloakService;
+
   }
 
   // public UsuarioDto cadastrar(UsuarioDto usuarioDto) {
@@ -74,7 +75,7 @@ public class UsuarioService {
    * Retorna o usuário autenticado com base no token JWT.
    */
   public UsuarioDto buscarUsuarioAutenticado(String accessToken) {
-    JsonNode userNode = this.userAutenticadoService.getUserFromKeycloak(accessToken);
+    JsonNode userNode = this.keycloakService.getUserFromKeycloak(accessToken);
 
     UsuarioDto usuarioDto = new UsuarioDto();
     usuarioDto.setId(userNode.get("id").asText());
