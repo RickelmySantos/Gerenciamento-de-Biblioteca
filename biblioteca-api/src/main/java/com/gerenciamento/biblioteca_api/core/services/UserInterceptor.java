@@ -1,7 +1,6 @@
 package com.gerenciamento.biblioteca_api.core.services;
 
 import com.gerenciamento.biblioteca_api.modelos.entidades.Usuario;
-import com.gerenciamento.biblioteca_api.modelos.enums.TipoUsuario;
 import com.gerenciamento.biblioteca_api.repositorios.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class UserInterceptor implements HandlerInterceptor {
 
   private final UsuarioRepository usuarioRepository;
+  private final UserAutenticadoService userAutenticadoService;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -31,9 +31,11 @@ public class UserInterceptor implements HandlerInterceptor {
       String userName = jwt.getClaim("preferred_username");
       String email = jwt.getClaim("email");
 
+
       this.usuarioRepository.findById(userId).orElseGet(() -> {
-        Usuario usuario = Usuario.builder().id(userId).nome(userName).email(email)
-            .tipoUsuario(TipoUsuario.USUARIO).build();
+        Usuario usuario = Usuario.builder().id(userId).nome(userName)
+            .tipoUsuario(this.userAutenticadoService.determinarTipoUsuario(jwt)).email(email)
+            .build();
         return this.usuarioRepository.save(usuario);
       });
     }

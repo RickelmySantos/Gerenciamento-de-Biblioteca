@@ -29,11 +29,11 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 // @EnableMethodSecurity(securedEnabled = true)
 @Slf4j
 public class WebSecurityConfig {
-  // @Value("${security.oauth2.resourceserver.jwt.jwk-set-uri}")
-  // private String jwkSetUri;
-
-  @Value("${security.oauth2.resourceserver.jwt.issuer-uri}")
+  @Value("${security.oauth2.resourceserver.jwt.jwk-set-uri}")
   private String jwkSetUri;
+
+  // @Value("${security.oauth2.resourceserver.jwt.issuer-uri}")
+  // private String jwkSetUri;
 
   @Value("${security.enabled:false}")
   protected Boolean securityEnabled;
@@ -75,6 +75,7 @@ public class WebSecurityConfig {
       });
 
       // http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> Customizer.withDefaults()));
+
       http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(this.jwtDecoder())
           .jwtAuthenticationConverter(this.jwtAuthenticationConverter())));
       http.sessionManagement(
@@ -103,7 +104,10 @@ public class WebSecurityConfig {
           List<String> roles =
               (List<String>) ((Map) resourcesAccess.get("biblioteca-ui")).get("roles");
 
-          roles.forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role)));
+          roles.forEach(role -> {
+            System.out.println("🔹 Role encontrada: " + role);
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+          });
         }
       }
 
