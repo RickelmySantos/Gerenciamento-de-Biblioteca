@@ -26,25 +26,6 @@ public class LivrosService {
     this.autorRepository = autorRepository;
   }
 
-  // public LivrosDto cadastrar(LivrosDto livroDto) {
-  // Assert.notNull(livroDto, "Livro não pode ser nulo");
-  // Assert.isNull(livroDto.getId(), "Id deve ser nulo");
-  // Assert.notNull(livroDto.getAutor().getId(), "AutorId não pode ser nulo");
-
-  // Autor autor = this.autorRepository.findById(livroDto.getAutor().getId())
-  // .orElseThrow(() -> new IllegalArgumentException("Autor não encontrado"));
-
-  // Livros livro = this.mapper.paraEntidade(livroDto);
-
-  // livro.setAutor(autor);
-
-  // Livros livroSalvo = this.repository.save(livro);
-
-  // return this.mapper.paraDto(livroSalvo);
-
-  // }
-
-
   public LivrosDto cadastrar(LivroRequestDto livroDto) {
     Assert.notNull(livroDto, "Livro não pode ser nulo");
     Assert.notNull(livroDto.getAutorId(), "AutorId não pode ser nulo");
@@ -78,8 +59,10 @@ public class LivrosService {
 
   public LivrosDto buscarPorId(Long id) {
     Assert.notNull(id, "Id não pode ser nulo");
-    Livros livros = this.repository.findByWithAutor(id)
+    Livros livros = this.repository.findByIdWithAutor(id)
         .orElseThrow(() -> new IllegalArgumentException("Livro não encontrado"));
+
+    livros.getEmprestimo().size();
 
     return this.mapper.paraDto(livros);
   }
@@ -87,6 +70,9 @@ public class LivrosService {
   public List<LivrosDto> listAll() {
 
     List<Livros> livros = this.repository.findAll();
+
+    livros.forEach(
+        livro -> livro.getEmprestimo().forEach(emprestimo -> emprestimo.getUsuario().getId()));
 
     return livros.stream().map(this.mapper::paraDto).toList();
   }

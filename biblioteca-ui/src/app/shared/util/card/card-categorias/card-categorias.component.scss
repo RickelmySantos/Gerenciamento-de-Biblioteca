@@ -1,0 +1,21 @@
+.card-categoria-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 1rem;
+
+    .wrapper-content {
+        background-color: #fff;
+        width: 20rem;
+        height: 5rem;
+        border-radius: 0.8rem;
+    }
+
+    .cotent {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: full;
+        height: 5rem;
+    }
+}

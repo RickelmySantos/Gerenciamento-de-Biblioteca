@@ -6,6 +6,7 @@ import { BaseComponent } from 'src/app/core/util/base.component';
 import { Livro } from 'src/app/models/livro.model';
 import { LivroService } from 'src/app/services/livroService.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CardCategoriasComponent } from 'src/app/shared/util/card/card-categorias/card-categoria.component';
 import { CardRenderComponent } from 'src/app/shared/util/card/card-render.component';
 
 @Component({
@@ -16,6 +17,7 @@ import { CardRenderComponent } from 'src/app/shared/util/card/card-render.compon
                 <section class="lista-livros  ">
                     <app-card-render [title]="'RECOMENDADOS'" [data]="livros$ | async" (selectLivro)="selecionarLivro($event)"></app-card-render>
                 </section>
+                <app-card-categorias></app-card-categorias>
 
                 <section class="lista-livros ">
                     <app-card-render [title]="'CATEGORIAS'" [data]="livros$ | async" (selectLivro)="selecionarLivro($event)"></app-card-render>
@@ -54,7 +56,7 @@ import { CardRenderComponent } from 'src/app/shared/util/card/card-render.compon
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    imports: [SharedModule, ButtonModule, AsyncPipe, NgIf, CardRenderComponent],
+    imports: [SharedModule, ButtonModule, AsyncPipe, NgIf, CardRenderComponent, CardCategoriasComponent],
 })
 export class LivrosComponent extends BaseComponent {
     livros$: Observable<Livro[]>;

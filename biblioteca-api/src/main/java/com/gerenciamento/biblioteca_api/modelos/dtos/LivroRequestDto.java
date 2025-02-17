@@ -1,5 +1,6 @@
 package com.gerenciamento.biblioteca_api.modelos.dtos;
 
+import com.gerenciamento.biblioteca_api.modelos.enums.StatusLivro;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,5 +21,6 @@ public class LivroRequestDto {
   private String idioma;
   private String genero;
   private Long autorId;
+  private StatusLivro status;
 
 }

@@ -13,7 +13,7 @@ public class UsuarioFactory implements EntidadeFactory<Usuario> {
   public Usuario create() {
 
     return Usuario.builder().nome(Random.nextAlphabeticString(10))
-        .email(Random.nextAlphabeticString(10)).senha(Random.nextAlphabeticString(10))
+        .email(Random.nextAlphabeticString(10))
         .tipoUsuario(Random.nextElement(TipoUsuario.values()))
         .emprestimo(EmprestimoFactory.instance.create(1)).build();
   }

@@ -26,55 +26,14 @@ public class UsuarioService {
 
   }
 
-  // public UsuarioDto cadastrar(UsuarioDto usuarioDto) {
-  // Assert.notNull(usuarioDto, "Usuario não pode ser nulo");
-  // Assert.isNull(usuarioDto.getId(), "Id deve ser nulo");
-
-  // Usuario usuario = this.repository.save(this.mapper.paraEntidade(usuarioDto));
-
-  // return this.mapper.paraDto(usuario);
-  // }
-
-  // public UsuarioDto atualizar(UsuarioDto usuarioDto) {
-
-  // Assert.notNull(usuarioDto, "Usuario não pode ser nulo");
-  // Assert.notNull(usuarioDto.getId(), "Id não pode ser nulo");
-
-  // Usuario usuario = this.repository.findById(usuarioDto.getId())
-  // .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
-
-  // Usuario usuarioAtualizado = this.mapper.paraEntidade(usuarioDto);
-  // usuarioAtualizado.setId(usuario.getId());
-
-  // return this.mapper.paraDto(this.repository.save(usuarioAtualizado));
-  // }
-
-  // public List<UsuarioDto> listAll() {
-  // return this.repository.findAll().stream().map(this.mapper::paraDto).toList();
-  // }
-
-  // public UsuarioDto buscarPorId(Long id) {
-  // Assert.notNull(id, "Id não pode ser nulo");
-
-  // Usuario usuario = this.repository.findById(id)
-  // .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
-
-  // return this.mapper.paraDto(usuario);
-  // }
-
-  // public void deletar(Long id) {
-  // Assert.notNull(id, "Id não pode ser nulo");
-
-  // Usuario usuario = this.repository.findById(id)
-  // .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
-
-  // this.repository.delete(usuario);
-  // }
-
   /**
    * Retorna o usuário autenticado com base no token JWT.
    */
   public UsuarioDto buscarUsuarioAutenticado(String accessToken) {
+    if (accessToken == null || accessToken.trim().isEmpty()) {
+      throw new IllegalArgumentException("Token de acesso não pode ser nulo ou vazio.");
+    }
+
     JsonNode userNode = this.keycloakService.getUserFromKeycloak(accessToken);
 
     UsuarioDto usuarioDto = new UsuarioDto();

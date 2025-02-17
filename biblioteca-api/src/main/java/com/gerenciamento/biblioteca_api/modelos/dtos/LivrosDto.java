@@ -1,5 +1,6 @@
 package com.gerenciamento.biblioteca_api.modelos.dtos;
 
+import com.gerenciamento.biblioteca_api.modelos.enums.StatusLivro;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,6 +22,7 @@ public class LivrosDto {
   private String idioma;
   private String genero;
   private AutorDto autor;
+  private StatusLivro status;
 
   private List<EmprestimoDto> emprestimo;
 

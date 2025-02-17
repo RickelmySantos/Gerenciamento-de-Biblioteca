@@ -60,11 +60,14 @@ public class WebSecurityConfig {
       http.cors(cors -> Customizer.withDefaults());
       http.authorizeHttpRequests(authorizeRequests -> {
         authorizeRequests.requestMatchers(mvc.pattern("/v3/api-docs")).permitAll()
-            .requestMatchers("/api/usuarios/me").hasRole("ADMIN")
+            // .requestMatchers("/api/usuarios/me").hasRole("ADMIN")
             .requestMatchers(mvc.pattern("/swagger-resources/**")).permitAll()
             .requestMatchers(mvc.pattern("/swagger-ui/**")).permitAll()
             .requestMatchers(mvc.pattern("/swagger-ui/index.html**")).permitAll()
             .requestMatchers(mvc.pattern("/actuator/health")).permitAll()
+
+            .requestMatchers(mvc.pattern("/livros")).permitAll()
+            .requestMatchers(mvc.pattern("/emprestimos")).permitAll()
             // APP
             .anyRequest().authenticated();
       });

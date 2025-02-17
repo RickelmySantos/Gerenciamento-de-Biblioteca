@@ -31,7 +31,6 @@ import lombok.ToString;
 @Table(name = "tb_usuario")
 public class Usuario {
   @Id
-  // @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(length = 255)
   private String id; // Alteado para String devido ao retorno do keycloak ser um UUID
 

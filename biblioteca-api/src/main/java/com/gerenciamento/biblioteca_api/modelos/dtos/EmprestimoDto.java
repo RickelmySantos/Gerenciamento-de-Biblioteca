@@ -22,8 +22,6 @@ public class EmprestimoDto {
   private LocalDate dataEmprestimo;
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataDevolucao;
-  // private Long usuarioId;
-  // private Long livroId;
 
   private UsuarioDto usuarioDto;
 

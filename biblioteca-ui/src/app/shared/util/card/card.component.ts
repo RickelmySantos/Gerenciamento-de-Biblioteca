@@ -12,7 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
             <img src="assets/images/clean-code.png" alt="iamgem" class="shadow-2 border-round-xl" />
 
             <section class="info">
-                <h3>{{ hover ? livro?.titulo + ' - ' + livro?.titulo : livro?.editora }}</h3>
+                <!-- <h3>{{ hover ? livro?.titulo + ' - ' + livro?.titulo : livro?.editora }}</h3> -->
+                <h3>{{ hover ? livro?.titulo + ' - ' + livro?.editora : livro?.editora }}</h3>
                 <p class="text-lg">{{ hover ? (livro?.descricao | slice : 0 : 60) : (livro?.descricao | slice : 0 : 40) }}</p>
                 <footer class="buttons">
                     <ng-container>
