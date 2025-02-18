@@ -16,12 +16,12 @@ elif [[ $1 == "stop" ]]; then
     docker compose stop
 elif [[ $1 == "stop app" ]]; then
     echo "Interrompendo a execução da aplicação..."
-    docker compose stop marketplace-api-local marketplace-ui-local
+    docker compose stop biblioteca-api-local biblioteca-ui-local
 elif [[ $1 == "build api image" ]]; then
     echo "Construindo a imagem da API..."
-    docker compose build marketplace-api-local --no-cache
+    docker compose build biblioteca-api-local --no-cache
 elif [[ $1 == "build ui image" ]]; then
     echo "Construindo a imagem da UI..."
-    docker compose build marketplace-ui-local --no-cache
+    docker compose build biblioteca-ui-local --no-cache
 fi
 

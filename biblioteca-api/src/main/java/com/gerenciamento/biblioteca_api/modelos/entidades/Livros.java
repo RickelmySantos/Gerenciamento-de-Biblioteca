@@ -49,7 +49,6 @@ public class Livros {
 
   @ManyToOne
   @JoinColumn(name = "autor_id", nullable = false)
-  // @JsonBackReference
   @NotNull
   private Autor autor;
 

@@ -1,0 +1,12 @@
+# More information on the parameters can be found here: https://documentation.red-gate.com/flyway/flyway-cli-and-api/configuration/parameters
+[environments.local]
+url="jdbc:postgresql://localhost:5432/biblioteca_local"
+user="postgres"
+password="postgres"
+schemas=["bibloteca","bibloteca_adm"]
+
+[flyway]
+environment="local"
+locations=["classpath:src/main/resources/db/migration"]
+defaultSchema="marketplace_adm"
+table="tb_schema_version"

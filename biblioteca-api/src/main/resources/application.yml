@@ -5,24 +5,26 @@ server:
     context-path: /api
 spring:
   flyway:
-    enabled: ${FLYWAY_ENABLED:true}
+    enabled: ${FLYWAY_ENABLED:false}
     baseline-on-migrate: true
     baseline-version: 0
     baseline-description: Biblioteca Baseline
     create-schemas: ${FLYWAY_CREATE_SCHEMA:true}
-    default-schema: ${FLYWAY_DEFAULT_SCHEMA:biblioteca_adm}
+    default-schema: ${FLYWAY_DEFAULT_SCHEMA:biblioteca}
     schemas: ${FLYWAY_SCHEMAS:biblioteca}
     url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
     user: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
     # locations: ${FLYWAY_LOCATIONS:classpath:db/migration,filesystem:/tmp/import/V0}
-    locations: ${FLYWAY_LOCATIONS:filesystem:/tmp/import/}
+    locations: ${FLYWAY_LOCATIONS:classpath:db/migration}
+    validate-migration-naming: true
+
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/localdb}
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
   jpa:
-    database-platform: ${JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+    # database-platform: ${JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
     hibernate:
       ddl-auto: none
     open-in-view: false

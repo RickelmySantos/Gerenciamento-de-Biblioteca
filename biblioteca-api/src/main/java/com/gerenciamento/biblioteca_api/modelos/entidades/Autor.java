@@ -36,10 +36,10 @@ public class Autor {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @NotBlank
-  @Size(min = 5, max = 100)
+  @Size(min = 3, max = 100)
   private String nome;
   @NotBlank
-  @Size(min = 5, max = 100)
+  @Size(min = 3, max = 100)
   private String sobrenome;
   @NotBlank
   private String nacionalidade;

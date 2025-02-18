@@ -1,3 +1,4 @@
+SET SCHEMA 'biblioteca';
 
 CREATE TABLE IF NOT EXISTS tb_autores (
     id SERIAL PRIMARY KEY,

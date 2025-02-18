@@ -75,11 +75,12 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
       JPA_SHOW_SQL: true
+
       FLYWAY_ENABLED: true
       FLYWAY_CREATE_SCHEMA: true
-      FLYWAY_DEFAULT_SCHEMA: biblioteca
-      FLYWAY_SCHEMAS: biblioteca
-      FLYWAY_LOCATIONS: filesystem:/tmp/import/V0
+      FLYWAY_DEFAULT_SCHEMA: biblioteca_adm
+      FLYWAY_SCHEMAS: biblioteca,biblioteca_adm
+      FLYWAY_LOCATIONS: filesystem:/tmp/import
 
       OAUTH_RESOURCESERVER_JWT: http://localhost:8280/auth/realms/REALM_LOCAL/protocol/openid-connect/certs
       OAUTH_CLIENT_ID: biblioteca-ui

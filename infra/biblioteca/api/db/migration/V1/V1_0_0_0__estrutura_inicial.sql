@@ -1,6 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS biblioteca;
-
-SET search_path TO biblioteca;
+SET SCHEMA 'biblioteca';
 
 CREATE TABLE IF NOT EXISTS tb_autores (
     id SERIAL PRIMARY KEY,
