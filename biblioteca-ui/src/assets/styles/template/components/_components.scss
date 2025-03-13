@@ -39,6 +39,12 @@
     }
 }
 
+.layout-containerblock {
+    display: flex;
+    flex: 1 1 autor;
+    max-width: 129rem;
+}
+
 .custom-scrollbar {
     &::-webkit-scrollbar {
         width: 6px;
