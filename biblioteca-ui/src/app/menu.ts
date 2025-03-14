@@ -11,6 +11,6 @@ export const MENU: CustomMenuItem[] = [
     {
         label: 'menu.livros',
         icon: IconUtils.convertToString(AppIcons.core.livros),
-        routerLink: ['biblioteca/livros'],
+        routerLink: ['biblioteca/home'],
     },
 ];

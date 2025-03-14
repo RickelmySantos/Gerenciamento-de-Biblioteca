@@ -3,11 +3,12 @@ import { BaseComponent } from 'src/app/core/util/base.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
-    selector: 'app-livros-categorias',
-    template: ``,
+    selector: 'app-biblioteca-layout',
+    templateUrl: './biblioteca-layout.component.html',
+    styles: [],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     imports: [SharedModule],
 })
-export class LivrosCategoriasComponent extends BaseComponent {}
+export class BibliotecaLayoutComponent extends BaseComponent {}

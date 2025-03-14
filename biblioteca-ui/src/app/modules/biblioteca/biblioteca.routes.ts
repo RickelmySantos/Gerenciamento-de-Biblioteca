@@ -4,6 +4,6 @@ export default [
     {
         path: '',
         component: BibliotecaComponent,
-        children: [{ path: 'livros', loadComponent: () => import('./components/livros/livros.component').then(m => m.LivrosComponent) }],
+        children: [{ path: 'home', loadComponent: () => import('./layout/biblioteca-layout.component').then(m => m.BibliotecaLayoutComponent) }],
     },
 ];

@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     template: `
         <router-outlet />
     `,
+    styles: [':host {display: block; width: 100%; height: 100%;}'],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
