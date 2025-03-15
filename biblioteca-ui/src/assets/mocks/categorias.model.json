@@ -1,0 +1,9 @@
+{
+    "content": [
+        { "id": 1, "nome": "TECNOLOGIA", "cor": "#a8c7fa" },
+        { "id": 2, "nome": "DBA", "cor": "#9ae59a" },
+        { "id": 3, "nome": "DESIGNER", "cor": "#e8f3b6" },
+        { "id": 6, "nome": "IA", "cor": "#fad5a8" },
+        { "id": 7, "nome": "AUTOMAÇÃO", "cor": "#e9cbcb" }
+    ]
+}
