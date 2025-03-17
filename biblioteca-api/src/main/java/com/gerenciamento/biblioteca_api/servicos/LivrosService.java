@@ -9,6 +9,8 @@ import com.gerenciamento.biblioteca_api.repositorios.AutorRepository;
 import com.gerenciamento.biblioteca_api.repositorios.LivrosRepository;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -67,14 +69,15 @@ public class LivrosService {
     return this.mapper.paraDto(livros);
   }
 
-  public List<LivrosDto> listAll() {
+  public Page<LivrosDto> listAll() {
 
     List<Livros> livros = this.repository.findAll();
 
     livros.forEach(
         livro -> livro.getEmprestimo().forEach(emprestimo -> emprestimo.getUsuario().getId()));
 
-    return livros.stream().map(this.mapper::paraDto).toList();
+    List<LivrosDto> livrosDto = livros.stream().map(this.mapper::paraDto).toList();
+    return new PageImpl<>(livrosDto);
   }
 
   public void deletar(Long id) {

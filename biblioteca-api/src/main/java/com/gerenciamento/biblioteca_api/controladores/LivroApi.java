@@ -5,9 +5,9 @@ import com.gerenciamento.biblioteca_api.modelos.dtos.LivrosDto;
 import com.gerenciamento.biblioteca_api.servicos.LivrosService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +38,7 @@ public class LivroApi {
   }
 
   @GetMapping
-  public ResponseEntity<List<LivrosDto>> listAll() {
+  public ResponseEntity<Page<LivrosDto>> listAll() {
     return ResponseEntity.status(HttpStatus.OK).body(this.livroService.listAll());
   }
 
