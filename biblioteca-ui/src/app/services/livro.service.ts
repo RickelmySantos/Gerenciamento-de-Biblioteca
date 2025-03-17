@@ -1,15 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
+import { CrudService } from 'src/app/core/services/crud.service';
 import { Livro } from 'src/app/models/livro.model';
 
 @Injectable({ providedIn: 'root' })
-export class LivroService {
-    private readonly API_URL = 'http://localhost:8080/api/livros';
-
-    constructor(private http: HttpClient) {}
+export class LivroService extends CrudService<Livro> {
+    protected override PATH: string = 'livros';
 
     buscarLivros(): Observable<Livro[]> {
-        return this.http.get<Livro[]>(`${this.API_URL}`);
+        return this.http.get<Livro[]>(this.getURl()).pipe(take(1));
     }
 }

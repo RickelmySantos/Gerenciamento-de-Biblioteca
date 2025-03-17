@@ -3,9 +3,8 @@
         <section class="categorias mt-8 mb-7">
             <app-biblioteca-categorias-view></app-biblioteca-categorias-view>
         </section>
-        <ng-container *ngIf="livroStore.value$ | async as livroStore">
-            <app-card-render [data]="livroStore"></app-card-render>
+        <ng-container *ngIf="livros$ | async as livros">
+            <app-card-render title="Livros" [data]="livros"></app-card-render>
         </ng-container>
-
     </main>
 </div>
