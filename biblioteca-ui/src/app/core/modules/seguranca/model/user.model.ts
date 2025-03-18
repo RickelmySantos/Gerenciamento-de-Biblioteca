@@ -20,6 +20,10 @@ export interface Info {
     description?: string;
 }
 
+export function isUser(obj: any): obj is User {
+    return obj && 'login' in obj;
+}
+
 export function mapUser(user: any): User {
     if (!user) return null;
     return { login: user.login, name: user.nome, email: user.email } as User;

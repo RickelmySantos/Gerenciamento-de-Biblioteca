@@ -1,8 +1,8 @@
 import { inject, Injectable, InjectionToken } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable } from 'rxjs';
-import { hasPermission, hasRole } from 'src/app/core/auth/aut-util';
 import { authConfig } from 'src/app/core/auth/auth-config';
+import { hasPermission, hasRole } from 'src/app/core/auth/auth-util';
 import { User } from 'src/app/core/modules/seguranca/model/user.model';
 import { UniqueDataStore } from 'src/app/core/store/unique-data.store';
 import { Permission } from 'src/app/shared/auth/permission.enum';
@@ -42,7 +42,6 @@ export class AuthService {
             await this.oauthService.tryLoginCodeFlow();
 
             if (this.hasValidToken()) {
-                console.log('Usuário já autenticado, carregando aplicação...');
                 return;
             }
 
