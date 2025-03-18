@@ -9,7 +9,7 @@
             <div class="content-wrapper">
                 <main class="content-container">
                     <div class="fluid-content">
-                        <router-outlet></router-outlet>
+                        <router-outlet (activate)="onLoadPage($event)"></router-outlet>
                     </div>
                 </main>
                 <app-footer></app-footer>

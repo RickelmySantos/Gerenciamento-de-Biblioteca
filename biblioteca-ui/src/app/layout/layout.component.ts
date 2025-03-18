@@ -24,7 +24,6 @@ export class LayoutComponent extends BaseComponent {
     }
 
     override ngOnInit(): void {
-        console.log('LayoutComponent foi carregado');
         super.ngOnInit();
         this.configSideBar();
     }
