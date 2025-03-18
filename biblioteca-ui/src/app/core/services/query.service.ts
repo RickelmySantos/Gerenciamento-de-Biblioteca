@@ -15,8 +15,8 @@ export abstract class QueryService<E extends Entity<any>> {
         return `${this.API}/${this.PATH}`;
     }
 
-    listAll(): Observable<E> {
-        return this.http.get<E>(this.getURl()).pipe(distinctUntilChanged(), take(1), shareReplay());
+    listAll(): Observable<ResultList<E>> {
+        return this.http.get<ResultList<E>>(this.getURl()).pipe(distinctUntilChanged(), take(1), shareReplay());
     }
 
     load(id: number): Observable<ResultList<E[]>> {

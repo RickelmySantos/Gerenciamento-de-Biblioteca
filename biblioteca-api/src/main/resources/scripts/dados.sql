@@ -9,7 +9,7 @@ INSERT INTO tb_autores (nome, sobrenome, nacionalidade, data_nascimento) VALUES
     ('Steve', 'McConnell', 'Americano', '1962-09-10'),
     ('Andrew', 'Hunt', 'Americano', '1965-07-15'),
     ('David', 'Thomas', 'Americano', '1966-02-06'),
-    ('Fred', 'Brooks', 'Americano', '1931-04-19'),
+    ('Fred', 'Brooks', 'Americano', '1931-04-19'), 
     ('Donald', 'Knuth', 'Americano', '1938-01-10');
 
 -- Inserindo livros relacionados a desenvolvimento de software

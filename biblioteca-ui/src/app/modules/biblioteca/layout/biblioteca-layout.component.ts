@@ -1,6 +1,6 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { BaseComponent } from 'src/app/core/util/base.component';
 import { Livro } from 'src/app/models/livro.model';
 import { BibliotecaCategoriasViewComponent } from 'src/app/modules/biblioteca/layout/components/biblioteca-categoria/biblioteca-categorias-view.component';
@@ -19,7 +19,6 @@ import { CardRenderComponent } from 'src/app/shared/util/card/card-render.compon
 })
 export class BibliotecaLayoutComponent extends BaseComponent {
     readonly livroService: LivroService = inject(LivroService);
-
     livros$: Observable<Livro[]>;
 
     override ngOnInit(): void {
@@ -27,6 +26,6 @@ export class BibliotecaLayoutComponent extends BaseComponent {
     }
 
     private carregarLivros() {
-        this.livros$ = this.livroService.buscarLivros();
+        this.livros$ = this.livroService.listAll().pipe(map(res => res.content));
     }
 }

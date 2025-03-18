@@ -8,5 +8,5 @@ schemas=["bibloteca","bibloteca_adm"]
 [flyway]
 environment="local"
 locations=["classpath:src/main/resources/db/migration"]
-defaultSchema="marketplace_adm"
+defaultSchema="biblioteca_adm"
 table="tb_schema_version"
