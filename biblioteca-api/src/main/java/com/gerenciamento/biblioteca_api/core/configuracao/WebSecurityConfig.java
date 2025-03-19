@@ -1,10 +1,7 @@
 package com.gerenciamento.biblioteca_api.core.configuracao;
 
+import com.gerenciamento.biblioteca_api.core.seguranca.JwtAuthConverter;
 import jakarta.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,11 +11,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
@@ -33,6 +25,8 @@ public class WebSecurityConfig {
 
   @Value("${security.enabled:false}")
   protected Boolean securityEnabled;
+
+  private final JwtAuthConverter jwtAuthConverter;
 
   @PostConstruct
   public void init() {
@@ -71,46 +65,14 @@ public class WebSecurityConfig {
             // APP
             .anyRequest().authenticated();
       });
-      http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(this.jwtDecoder())
-          .jwtAuthenticationConverter(this.jwtAuthenticationConverter())));
+      http.oauth2ResourceServer(
+          oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(this.jwtAuthConverter)));
       http.sessionManagement(
           session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
     }
     return http.build();
   }
 
-  @Bean
-  public JwtDecoder jwtDecoder() {
-    return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
-  }
-
-  @Bean
-  public JwtAuthenticationConverter jwtAuthenticationConverter() {
-    JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-
-    converter.setJwtGrantedAuthoritiesConverter(jwt -> {
-      Collection<GrantedAuthority> authorities = new ArrayList<>();
-
-      if (jwt.getClaim("resource_access") != null) {
-
-        Map<String, Object> resourcesAccess = (Map<String, Object>) jwt.getClaim("resource_access");
-
-        if (resourcesAccess.containsKey("biblioteca-ui")) {
-          List<String> roles =
-              (List<String>) ((Map) resourcesAccess.get("biblioteca-ui")).get("roles");
-
-          roles.forEach(role -> {
-            System.out.println("🔹 Role encontrada: " + role);
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
-          });
-        }
-      }
-
-      return authorities;
-    });
-
-    return converter;
-  }
 
   private Boolean isSecurityDisabled() {
     return this.securityEnabled != null && !this.securityEnabled;
