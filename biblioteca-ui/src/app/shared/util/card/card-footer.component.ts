@@ -1,8 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, Input } from '@angular/core';
-import { filter, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
-import { isUser } from 'src/app/core/modules/seguranca/model/user.model';
+import { User } from 'src/app/core/modules/seguranca/model/user.model';
 import { RefreshableComponent } from 'src/app/core/util/refreshable.component';
 import { Livro } from 'src/app/models/livro.model';
 import { EmprestimoService } from 'src/app/services/emprestimo.service';
@@ -22,15 +22,15 @@ import { ButtonActionsComponent } from 'src/app/shared/util/actions/button-actio
                 [label]="'botao.visualizar'"
                 [icon]="icons.core.visualizar"
                 [type]="'link'"></app-button>
-            <app-button
+            <!-- <app-button
                 buttonClass="text-white"
                 [contextLabel]="contextLabel"
                 [ariaLabel]="'botao.emprestimo'"
                 [label]="'botao.emprestimo'"
                 [icon]="icons.core.favoritos"
                 [type]="'link'"
-                (onClick)="solicitarEmprestimo()"></app-button>
-            <!-- <app-button
+                (onClick)="solicitarEmprestimo()"></app-button> -->
+            <app-button
                 *ngIf="user$ | async as user"
                 buttonClass="text-white"
                 [contextLabel]="contextLabel"
@@ -38,7 +38,7 @@ import { ButtonActionsComponent } from 'src/app/shared/util/actions/button-actio
                 [label]="'botao.emprestimo'"
                 [icon]="icons.core.favoritos"
                 [type]="'button'"
-                (click)="solicitarEmprestimo(user)"></app-button> -->
+                (click)="solicitarEmprestimo()"></app-button>
 
             <ng-content></ng-content>
         </div>
@@ -47,7 +47,7 @@ import { ButtonActionsComponent } from 'src/app/shared/util/actions/button-actio
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    imports: [SharedModule, ButtonActionsComponent, AsyncPipe],
+    imports: [SharedModule, ButtonActionsComponent, AsyncPipe, NgIf],
 })
 export class CardFooterComponent extends RefreshableComponent {
     protected readonly authService = inject(AuthService);
@@ -56,19 +56,19 @@ export class CardFooterComponent extends RefreshableComponent {
 
     @Input()
     contextLabel: string;
-    user$ = this.authService.user$;
+
+    user$: Observable<User>;
     user: any;
 
     constructor(private emprestimoService: EmprestimoService) {
         super();
     }
     override ngOnInit(): void {
-        this.user$.pipe(filter(isUser), take(1)).subscribe(user => {
+        this.user$ = this.authService.user$;
+        this.authService.user$.subscribe(user => {
             this.user = user;
-            console.log('Usuário', user);
+            console.log('Usuário recebido:', JSON.stringify(user, null, 2));
         });
-
-        console.log('user', this.user);
     }
 
     solicitarEmprestimo() {
@@ -78,7 +78,7 @@ export class CardFooterComponent extends RefreshableComponent {
         }
         const request = {
             livroId: this.livro.id,
-            usuarioId: this.user.login,
+            usuarioId: this.user.id,
         };
 
         this.emprestimoService.criarEmprestimo(request).subscribe({

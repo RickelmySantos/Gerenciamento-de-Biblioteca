@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +31,9 @@ public class EmprestimoApi {
 
   @PostMapping
   public ResponseEntity<EmprestimoDto> criarEmprestimo(
+      @RequestHeader(value = "Authorization", required = false) String authHeader,
       @RequestBody @Valid EmprestimoRequestDto requestDto) {
+    System.out.println("🔑 Token recebido no backend: " + authHeader);
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(this.emprestimoService.criarEmprestimo(requestDto));
   }

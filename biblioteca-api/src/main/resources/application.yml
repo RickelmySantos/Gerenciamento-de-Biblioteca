@@ -40,7 +40,7 @@ spring:
       mode: never
   # Configuração do Keycloak + security
 security:
-  enabled: false
+  enabled: true
   oauth2:
     resourceserver:
       jwt:

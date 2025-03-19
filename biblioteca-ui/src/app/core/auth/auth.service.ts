@@ -42,6 +42,10 @@ export class AuthService {
             await this.oauthService.tryLoginCodeFlow();
 
             if (this.hasValidToken()) {
+                const userClaims = this.oauthService.getIdentityClaims();
+                if (userClaims) {
+                    this.setUserProfile(userClaims);
+                }
                 return;
             }
 
@@ -62,6 +66,25 @@ export class AuthService {
             console.error('Erro ao carregar tokens:', error);
             return false;
         }
+    }
+    private setUserProfile(userClaims: any): void {
+        if (!userClaims) {
+            console.error('Nenhum dado de usuário encontrado!');
+            return;
+        }
+
+        const user: User = {
+            id: userClaims.sub,
+            name: userClaims.preferred_username || 'Desconhecido',
+            email: userClaims.email || 'Sem email',
+            login: '',
+            roles: [],
+        };
+
+        console.log('Usuário autenticado antes de salvar:', user); // Debug
+        this.userStore.value = user; // Aqui garantimos que o usuário seja armazenado corretamente
+
+        console.log('Usuário salvo no store:', this.userStore.value); // Debug
     }
 
     login(): void {

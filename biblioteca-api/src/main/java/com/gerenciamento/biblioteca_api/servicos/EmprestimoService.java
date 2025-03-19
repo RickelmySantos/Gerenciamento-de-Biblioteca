@@ -39,6 +39,7 @@ public class EmprestimoService {
   public EmprestimoDto criarEmprestimo(EmprestimoRequestDto requestDto) {
 
     String userId = this.userAutenticadoService.getUserId();
+    System.out.println("🔍 ID do usuário autenticado: " + userId);
 
     Usuario usuario = this.usuarioRepository.findById(userId)
         .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
