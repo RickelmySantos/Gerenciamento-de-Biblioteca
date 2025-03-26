@@ -37,7 +37,7 @@ import { ButtonActionsComponent } from 'src/app/shared/util/actions/button-actio
                 [ariaLabel]="'botao.emprestimo'"
                 [label]="'botao.emprestimo'"
                 [icon]="icons.core.favoritos"
-                [type]="'button'"
+                [type]="'link'"
                 (click)="solicitarEmprestimo()"></app-button>
 
             <ng-content></ng-content>

@@ -1,0 +1,1 @@
+ALTER TABLE tb_livros ADD COLUMN categoria VARCHAR(255);

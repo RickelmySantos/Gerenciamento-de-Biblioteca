@@ -9,28 +9,37 @@ INSERT INTO tb_autores (nome, sobrenome, nacionalidade, data_nascimento) VALUES
     ('Steve', 'McConnell', 'Americano', '1962-09-10'),
     ('Andrew', 'Hunt', 'Americano', '1965-07-15'),
     ('David', 'Thomas', 'Americano', '1966-02-06'),
-    ('Fred', 'Brooks', 'Americano', '1931-04-19'), 
+    ('Fred', 'Brooks', 'Americano', '1931-04-19'),
     ('Donald', 'Knuth', 'Americano', '1938-01-10');
 
+
+INSERT INTO tb_categoria (id, nome) VALUES
+    (1, 'TECNOLOGIA'),
+    (2, 'DBA'),
+    (3, 'DESIGNER'),
+    (6, 'IA'),
+    (7, 'AUTOMAÇÃO');
+
+
 -- Inserindo livros relacionados a desenvolvimento de software
-INSERT INTO tb_livros (titulo, editora, idioma, genero, autor_id) VALUES
+INSERT INTO tb_livros (titulo, editora, idioma, genero, autor_id, categoria_id) VALUES
     ('Código Limpo: Habilidades Práticas do Agile Software', 'Alta Books', 'Português', 'Engenharia de Software',
-        (SELECT id FROM tb_autores WHERE nome = 'Robert' AND sobrenome = 'Martin')),
+        (SELECT id FROM tb_autores WHERE nome = 'Robert' AND sobrenome = 'Martin' LIMIT 1), 1),
     ('Arquitetura Limpa: O Guia do Artesão para Estrutura e Design de Software', 'Alta Books', 'Português', 'Engenharia de Software',
-        (SELECT id FROM tb_autores WHERE nome = 'Robert' AND sobrenome = 'Martin')),
+        (SELECT id FROM tb_autores WHERE nome = 'Robert' AND sobrenome = 'Martin' LIMIT 1), 1),
     ('Refactoring: Improving the Design of Existing Code', 'Addison-Wesley', 'Inglês', 'Refatoração',
-        (SELECT id FROM tb_autores WHERE nome = 'Martin' AND sobrenome = 'Fowler')),
+        (SELECT id FROM tb_autores WHERE nome = 'Martin' AND sobrenome = 'Fowler' LIMIT 1), 2),
     ('Domain-Driven Design: Tackling Complexity in the Heart of Software', 'Addison-Wesley', 'Inglês', 'Design de Software',
-        (SELECT id FROM tb_autores WHERE nome = 'Eric' AND sobrenome = 'Evans')),
+        (SELECT id FROM tb_autores WHERE nome = 'Eric' AND sobrenome = 'Evans' LIMIT 1), 3),
     ('Extreme Programming Explained: Embrace Change', 'Addison-Wesley', 'Inglês', 'Metodologias Ágeis',
-        (SELECT id FROM tb_autores WHERE nome = 'Kent' AND sobrenome = 'Beck')),
+        (SELECT id FROM tb_autores WHERE nome = 'Kent' AND sobrenome = 'Beck' LIMIT 1), 3),
     ('Code Complete: A Practical Handbook of Software Construction', 'Microsoft Press', 'Inglês', 'Engenharia de Software',
-        (SELECT id FROM tb_autores WHERE nome = 'Steve' AND sobrenome = 'McConnell')),
+        (SELECT id FROM tb_autores WHERE nome = 'Steve' AND sobrenome = 'McConnell' LIMIT 1), 1),
     ('The Pragmatic Programmer: Your Journey to Mastery', 'Addison-Wesley', 'Inglês', 'Boas Práticas de Programação',
-        (SELECT id FROM tb_autores WHERE nome = 'Andrew' AND sobrenome = 'Hunt')),
+        (SELECT id FROM tb_autores WHERE nome = 'Andrew' AND sobrenome = 'Hunt' LIMIT 1), 1),
     ('The Pragmatic Programmer: Your Journey to Mastery', 'Addison-Wesley', 'Inglês', 'Boas Práticas de Programação',
-        (SELECT id FROM tb_autores WHERE nome = 'David' AND sobrenome = 'Thomas')),
+        (SELECT id FROM tb_autores WHERE nome = 'David' AND sobrenome = 'Thomas' LIMIT 1), 1),
     ('The Mythical Man-Month: Essays on Software Engineering', 'Addison-Wesley', 'Inglês', 'Gestão de Projetos',
-        (SELECT id FROM tb_autores WHERE nome = 'Fred' AND sobrenome = 'Brooks')),
+        (SELECT id FROM tb_autores WHERE nome = 'Fred' AND sobrenome = 'Brooks' LIMIT 1), 2),
     ('The Art of Computer Programming', 'Addison-Wesley', 'Inglês', 'Algoritmos',
-        (SELECT id FROM tb_autores WHERE nome = 'Donald' AND sobrenome = 'Knuth'));
+        (SELECT id FROM tb_autores WHERE nome = 'Donald' AND sobrenome = 'Knuth' LIMIT 1), 6);

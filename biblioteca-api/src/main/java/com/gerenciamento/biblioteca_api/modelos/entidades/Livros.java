@@ -47,6 +47,12 @@ public class Livros {
   @Size(min = 5, max = 100)
   private String genero;
 
+  @Size(min = 10, max = 100)
+  @ManyToOne
+  @JoinColumn(name = "categoria_id", nullable = false)
+  @NotNull
+  private Categoria categoria;
+
   @ManyToOne
   @JoinColumn(name = "autor_id", nullable = false)
   @NotNull

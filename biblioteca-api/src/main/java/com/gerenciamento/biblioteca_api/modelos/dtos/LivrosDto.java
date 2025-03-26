@@ -21,6 +21,7 @@ public class LivrosDto {
   private String editora;
   private String idioma;
   private String genero;
+  private CategoriaDto categoria;
   private AutorDto autor;
   private StatusLivro status;
 
