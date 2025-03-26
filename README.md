@@ -48,16 +48,56 @@ Este projeto é um sistema básico de gerenciamento de biblioteca desenvolvido c
 
 ## Tecnologias Utilizadas
 
-- **Spring Boot** - Framework principal para o backend.
-- **Spring Data JPA** - Gerenciamento de persistência e acesso ao banco de dados.
-- **Spring Security** - Implementação de autenticação e autorização.
-- **H2 Database** - Banco de dados em memória para testes iniciais.
-- **Maven** - Gerenciador de dependências e build.
-- **JUnit e Mockito** - Testes unitários e de integração.
+- **Backend**
+
+  - Java - v.17
+  - Spring Boot - v.3.0.6
+  - Jakarta Persistence - v.3.1.0
+  - Hibernate - v.6.1.7.Final
+  - Flyway - v.9.5.1
+  - Lombok - v.1.18.26
+  - Map Struct - v.1.5.3.Final
+  - **Testes**
+    - JUnit - v.5.9.2 (Jupiter)
+
+- **Frontend**
+
+  - Angular - v.15
+  - PrimeNG - v.15
+  - RxJS - v.7.8
+  - HTML - v.5
+  - SASS / CSS
+  - Javascript / TypeScript - ES2022
+  - **Testes**
+    - Karma - v.6.4
+  - **UI Design**
+    - PrimeFlex - v.15
+    - Font Awesome - v.6.4
+  - **Formatação e Análise Estática**
+    - Prettier - v.2.8.3
+    - Eslint - v.8.31.0
+
+- **Banco de Dados**
+
+  - Postgres - v.42.6.0 (Driver Version)
+
+- **Autenticação e Autorização**
+
+  - JWT / OAuth2
+  - Keycloak - v.16.1.0
+
+- **Dependências e Empacotamento**
+
+  - Maven - v.3.9.1
+  - NPM - v.9.5.1
+
+- **Execução**
+
+  - Tomcat - v.10.1.8
+  - Node - v.18.16 (Localmente)
+  - Apache - v.2.4
 
 ---
-
-## Como Executar o Projeto
 
 ### Pré-requisitos
 
@@ -88,7 +128,11 @@ Certifique-se de ter as seguintes ferramentas instaladas:
    ```
 
 4. Acesse a aplicação no navegador:
-   - URL padrão: [http://localhost:8080](http://localhost:8080)
+
+   - URL padrão: [http://localhost:8080]
+
+5. Acesse swagger:
+   - URL padrão: [http://localhost:8080/api/swagger-ui/index.html]
 
 ---
 
@@ -107,11 +151,6 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 - **POST** `/api/autores`: Adicionar um novo autor.
 - **DELETE** `/api/autores/{id}`: Remover um autor.
 
-### Usuários:
-
-- **POST** `/api/usuarios`: Cadastro de usuários.
-- **POST** `/api/login`: Login e autenticação.
-
 ### Empréstimos:
 
 - **POST** `/api/Emprestimo`: Realizar um empréstimo.
@@ -121,9 +160,9 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 
 ## Melhorias Futuras
 
-- Implementar busca com filtros (título, autor, gênero).
-- Adicionar paginação e ordenação nos endpoints de listagem.
-- Criar notificações para devoluções atrasadas.
-- Integração com um frontend (Angular)
+- [] Implementar busca com filtros (título, autor, gênero).
+- [x] Adicionar paginação e ordenação nos endpoints de listagem.
+- [] Criar notificações para devoluções atrasadas.
+- [x] Integração com um frontend (Angular)
 
 ---
