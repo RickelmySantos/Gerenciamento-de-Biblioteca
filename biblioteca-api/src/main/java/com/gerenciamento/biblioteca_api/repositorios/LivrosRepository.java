@@ -21,6 +21,6 @@ public interface LivrosRepository extends JpaRepository<Livros, Long> {
 
 
   @Override
-  @EntityGraph(attributePaths = {"autor", "emprestimo"})
+  @EntityGraph(attributePaths = {"autor", "emprestimo", "categoria"})
   List<Livros> findAll();
 }

@@ -2,6 +2,7 @@ package com.gerenciamento.biblioteca_api.modelos.entidades;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,7 +49,7 @@ public class Livros {
   private String genero;
 
   @Size(min = 10, max = 100)
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "categoria_id", nullable = false)
   @NotNull
   private Categoria categoria;
