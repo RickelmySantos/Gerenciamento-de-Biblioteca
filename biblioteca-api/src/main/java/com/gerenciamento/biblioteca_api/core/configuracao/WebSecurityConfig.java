@@ -11,6 +11,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
@@ -32,6 +34,11 @@ public class WebSecurityConfig {
   public void init() {
     WebSecurityConfig.log.info("LOADED >>>>> WebSecurityConfig");
     WebSecurityConfig.log.info("Security Enabled: " + this.securityEnabled);
+  }
+
+  @Bean
+  public JwtDecoder jwtDecoder() {
+    return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
   }
 
   @Bean
